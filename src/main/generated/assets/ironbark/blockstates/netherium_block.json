@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ironbark:block/netherium_block"
+    }
+  }
+}

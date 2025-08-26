@@ -1,14 +1,17 @@
 {
   "type": "ironbark:tablet_crafting",
   "key": {
+    "e": {
+      "item": "minecraft:ender_eye"
+    },
     "s": {
       "item": "minecraft:nether_star"
     }
   },
   "pattern": [
-    "   ",
-    " s ",
-    "   "
+    " e ",
+    "ese",
+    " e "
   ],
   "result": {
     "count": 1,

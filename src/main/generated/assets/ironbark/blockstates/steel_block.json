@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ironbark:block/steel_block"
+    }
+  }
+}

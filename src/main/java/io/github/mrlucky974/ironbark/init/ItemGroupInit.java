@@ -16,6 +16,7 @@ import java.util.Optional;
 public class ItemGroupInit {
     private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
     public static final Text MAIN_GROUP_KEY = Text.translatable("itemGroup."+ Ironbark.MOD_ID +".main_group");
+    public static final Text ARTIFACTS_GROUP_KEY = Text.translatable("itemGroup."+ Ironbark.MOD_ID +".artifacts_group");
 
     public static final ItemGroup MAIN_GROUP = register("main_group", FabricItemGroup.builder()
             .displayName(MAIN_GROUP_KEY)
@@ -28,8 +29,13 @@ public class ItemGroupInit {
                         .map(Optional::orElseThrow)
                         .filter(item -> !ItemInit.BLACKLIST.contains(item))
                         .forEach(entries::add);
+            })
+            .build());
 
-                // TODO : Populate item group with ancient clay tablets for each available recipe
+    public static final ItemGroup ARTIFACTS_GROUP = register("artifacts_group", FabricItemGroup.builder()
+            .displayName(ARTIFACTS_GROUP_KEY)
+            .icon(ItemInit.ANCIENT_CLAY_TABLET::getDefaultStack)
+            .entries((displayContext, entries) -> {
                 Optional.ofNullable(CLIENT.world).ifPresent(world -> {
                     RecipeManager recipeManager = world.getRecipeManager();
                     recipeManager.listAllOfType(RecipeInit.TypeInit.TABLET_CRAFTING).stream().map(entry -> {

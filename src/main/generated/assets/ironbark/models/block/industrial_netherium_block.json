@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "ironbark:block/industrial_netherium_block_top",
+    "side": "ironbark:block/industrial_netherium_block"
+  }
+}

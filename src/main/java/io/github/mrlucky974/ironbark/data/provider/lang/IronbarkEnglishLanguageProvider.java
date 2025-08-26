@@ -59,14 +59,18 @@ public class IronbarkEnglishLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ItemInit.SPICE_MIX, "Spice Mix");
         translationBuilder.add(ItemInit.ANCIENT_CLAY_TABLET, "Ancient Clay Tablet");
         translationBuilder.add(BlockInit.DEEPSLATE_ANTHRACITE_COAL_ORE, "Deepslate Anthracite Coal Ore");
-        translationBuilder.add(BlockInit.ANTHRACITE_COAL_BLOCK, "Anthracite Coal Block");
+        translationBuilder.add(BlockInit.ANTHRACITE_COAL_BLOCK, "Block of Anthracite Coal");
         translationBuilder.add(ItemInit.MORTAR, "Mortar");
         translationBuilder.add(TagList.Items.SPICY_ITEM_BLACKLIST, "Spicy Items Blacklist");
         translationBuilder.add(ItemInit.END_STAR, "End Star");
+        translationBuilder.add(BlockInit.NETHERIUM_BLOCK, "Block of Netherium");
+        translationBuilder.add(BlockInit.INDUSTRIAL_NETHERIUM_BLOCK, "Block of Industrial Netherium");
+        translationBuilder.add(BlockInit.STEEL_BLOCK, "Block of Steel");
 
         addEmiRecipeCategory(translationBuilder, IronbarkEmiPlugin.MORTAR_RECIPE_CATEGORY, "Mortar");
 
         addText(translationBuilder, ItemGroupInit.MAIN_GROUP_KEY, "Ironbark");
+        addText(translationBuilder, ItemGroupInit.ARTIFACTS_GROUP_KEY, "Ironbark - Artifacts");
         addText(translationBuilder, Ironbark.SPICY_TOOLTIP_KEY, "Spicy");
         addText(translationBuilder, AncientClayTabletItem.INVALID_RECIPE_TOOLTIP_KEY, "Invalid Recipe");
     }

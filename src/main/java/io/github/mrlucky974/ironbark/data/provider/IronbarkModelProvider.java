@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
+import net.minecraft.data.client.TexturedModel;
 
 public class IronbarkModelProvider extends FabricModelProvider {
     public IronbarkModelProvider(FabricDataOutput output) {
@@ -17,6 +18,9 @@ public class IronbarkModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSimpleCubeAll(BlockInit.DEEPSLATE_ANTHRACITE_COAL_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(BlockInit.ANTHRACITE_COAL_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(BlockInit.NETHERIUM_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(BlockInit.STEEL_BLOCK);
+        blockStateModelGenerator.registerSingleton(BlockInit.INDUSTRIAL_NETHERIUM_BLOCK, TexturedModel.END_FOR_TOP_CUBE_COLUMN);
     }
 
     @Override

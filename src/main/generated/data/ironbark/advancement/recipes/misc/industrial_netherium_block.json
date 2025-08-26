@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherium_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ironbark:netherium_plate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "ironbark:industrial_netherium_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherium_plate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "ironbark:industrial_netherium_block"
+    ]
+  }
+}

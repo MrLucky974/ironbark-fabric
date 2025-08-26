@@ -1,1 +1,4 @@
-// 1.21.1	2025-08-26T14:57:00.8373017	Ironbark/Tags for minecraft:block
+// 1.21.1	2025-08-26T16:15:46.9544077	Ironbark/Tags for minecraft:block
+9cbff472dced184f53133883e2cd0049236b63e2 data\minecraft\tags\block\needs_diamond_tool.json
+68645bb0995c393a333a8c848524f549b32a1070 data\minecraft\tags\block\needs_iron_tool.json
+8a3a1dfac1573b9eca15efa72cd8d5c9ad0a78e5 data\minecraft\tags\block\mineable\pickaxe.json

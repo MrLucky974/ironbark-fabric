@@ -1,6 +1,9 @@
 {
-  "block.ironbark.anthracite_coal_block": "Anthracite Coal Block",
+  "block.ironbark.anthracite_coal_block": "Block of Anthracite Coal",
   "block.ironbark.deepslate_anthracite_coal_ore": "Deepslate Anthracite Coal Ore",
+  "block.ironbark.industrial_netherium_block": "Block of Industrial Netherium",
+  "block.ironbark.netherium_block": "Block of Netherium",
+  "block.ironbark.steel_block": "Block of Steel",
   "emi.category.ironbark.mortar": "Mortar",
   "item.ironbark.ancient_clay_tablet": "Ancient Clay Tablet",
   "item.ironbark.ancient_clay_tablet.tooltip.invalid_recipe": "Invalid Recipe",
@@ -22,6 +25,7 @@
   "item.ironbark.spice_smolderroot": "Smolderroot",
   "item.ironbark.spruce_sap": "Spruce Sap",
   "item.ironbark.steel_ingot": "Steel Ingot",
+  "itemGroup.ironbark.artifacts_group": "Ironbark - Artifacts",
   "itemGroup.ironbark.main_group": "Ironbark",
   "tag.item.ironbark.spicy_item_blacklist": "Spicy Items Blacklist",
   "tooltip.ironbark.spicy": "Spicy"
