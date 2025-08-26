@@ -1,5 +1,6 @@
 package io.github.mrlucky974.ironbark.mixin;
 
+import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.IronbarkEffectManager;
 import io.github.mrlucky974.ironbark.client.IronbarkClient;
 import io.github.mrlucky974.ironbark.config.IronbarkConfig;
@@ -40,7 +41,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void moveEndInject(CallbackInfo ci) {
+    private void spelunker$tick(CallbackInfo ci) {
         World world = getWorld();
 
         if (!hasStatusEffect(StatusEffectInit.SPELUNKER)) {
@@ -59,6 +60,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         // update if player crosses chunk border
         if (cx != lastCx || cy != lastCy || cz != lastCz || forceOreChunkUpdate) {
+            Ironbark.LOGGER.debug("Player moved to section {}, {}, {} - updating chunks", cx, cy, cz);
             forceOreChunkUpdate = false;
             HashMap<Vec3i, ChunkSection> newChunks = IronbarkEffectManager.getSurroundingChunkSections(world, getPos());
 

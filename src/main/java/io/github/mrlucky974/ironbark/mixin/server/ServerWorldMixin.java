@@ -14,12 +14,12 @@ import java.util.function.BooleanSupplier;
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
     @Inject(method = "onBlockChanged", at = @At("HEAD"))
-    public void onBlockChangedInject(BlockPos pos, BlockState oldBlock, BlockState newBlock, CallbackInfo ci) {
+    public void spelunker$onBlockChanged(BlockPos pos, BlockState oldBlock, BlockState newBlock, CallbackInfo ci) {
         ((IWorld) this).spelunker$UpdateBlock(pos, oldBlock, newBlock);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    public void onTick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
+    public void spelunker$onTick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         ((IWorld) this).spelunker$UpdateChunks();
     }
 }

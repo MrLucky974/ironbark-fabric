@@ -42,8 +42,10 @@ public class IronbarkEffectManager {
                 chunk = world.getChunk(sectionPos.getX(), sectionPos.getZ(), ChunkStatus.FULL, false);
             }
         }
+
         if (chunk == null)
             return ChunkOres.EMPTY;
+
         ChunkSection section = chunk.getSection(sectionPos.getY());
         ChunkOres ores = new ChunkOres(sectionPos);
         var blockStates = section.getBlockStateContainer();
@@ -58,6 +60,7 @@ public class IronbarkEffectManager {
                 }
             }
         }
+
         Ironbark.LOGGER.info("Found {} ores in chunk at {}", ores.size(), sectionPos);
         return ores;
     }
@@ -70,14 +73,23 @@ public class IronbarkEffectManager {
         HashMap<Vec3i, ChunkSection> sections = new HashMap<>();
         for (int x = cx - IronbarkConfig.chunkRadius; x < cx + IronbarkConfig.chunkRadius + 1; x++) {
             for (int z = cz - IronbarkConfig.chunkRadius; z < cz + IronbarkConfig.chunkRadius + 1; z++) {
-                for (int y = cy - IronbarkConfig.chunkRadius; y < cy + IronbarkConfig.chunkRadius + 1; y++) {
-                    WorldChunk chunk = world.getChunk(x, z);
-                    ChunkSection[] sectionArray = chunk.getSectionArray();
+                if (!world.getChunkManager().isChunkLoaded(x, z)) {
+                    continue; // Skip unloaded chunks
+                }
 
+                WorldChunk chunk = world.getChunk(x, z);
+                ChunkSection[] sectionArray = chunk.getSectionArray();
+
+                for (int y = cy - IronbarkConfig.chunkRadius; y < cy + IronbarkConfig.chunkRadius + 1; y++) {
                     if (y < 0 || y >= sectionArray.length)
                         continue;
 
-                    sections.put(new Vec3i(x, y, z), sectionArray[y]);
+                    ChunkSection section = sectionArray[y];
+                    if (section == null || section.isEmpty())
+                        continue;
+
+                    // Use section array indices as the key, not world coordinates
+                    sections.put(new Vec3i(x, y, z), section);
                 }
             }
         }

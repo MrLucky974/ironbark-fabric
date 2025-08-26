@@ -45,7 +45,7 @@ public abstract class WorldMixin implements IWorld {
     private final Map<Vec3i, ChunkOres> dirtySpelunkerChunks = new ConcurrentHashMap<>();
 
     @Inject(method = "onBlockChanged", at = @At("HEAD"))
-    private void ironbark$onBlockChangedInject(BlockPos pos, BlockState oldBlock, BlockState newBlock, CallbackInfo ci) {
+    private void ironbark$onBlockChanged(BlockPos pos, BlockState oldBlock, BlockState newBlock, CallbackInfo ci) {
         spelunker$UpdateBlock(pos, oldBlock, newBlock);
     }
 

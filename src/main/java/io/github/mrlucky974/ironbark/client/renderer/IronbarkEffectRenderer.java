@@ -52,9 +52,10 @@ public class IronbarkEffectRenderer {
         for (Vec3i v : remove)
             chunkSections.remove(v);
         for (ChunkOres chunk : add) {
-            chunkSections.put(chunk.getPos(), chunk
-                    .remapToBlockCoordinates(world.getBottomSectionCoord())
-            );
+            if (chunk != null && !chunk.isEmpty()) {
+                ChunkOres mappedChunk = chunk.remapToBlockCoordinates(world.getBottomSectionCoord());
+                chunkSections.put(chunk.getPos(), mappedChunk);
+            }
         }
     }
 
@@ -82,18 +83,20 @@ public class IronbarkEffectRenderer {
             ChunkBlockConfig block = ore.getValue();
             if (squareDistance > block.getBlockRadiusMax())
                 continue;
+
             float fade;
             if (IronbarkConfig.globalTransition && block.isTransition()) {
                 fade = Math.min(1 - (float) ((squareDistance - block.getBlockRadiusMin()) / (block.getBlockRadiusMax() - block.getBlockRadiusMin())), 1);
                 fade = easeOutCirc(fade);
             } else fade = 1;
+
             matrices.push();
             matrices.translate(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             matrices.scale(fade, fade, fade);
             {
                 matrices.push();
                 matrices.translate(-0.5, -0.5, -0.5);
-                CUBE.renderCuboid(matrices.peek(), setOutlineColor(block.getColor(), vertexConsumers), 0, OverlayTexture.DEFAULT_UV, 0);
+                CUBE.renderCuboid(matrices.peek(), setOutlineColor(block.getColor(), vertexConsumers), 0, OverlayTexture.DEFAULT_UV, 0x00000000);
                 matrices.pop();
             }
             matrices.pop();

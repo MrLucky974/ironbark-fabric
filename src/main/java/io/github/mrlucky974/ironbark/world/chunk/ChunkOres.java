@@ -44,12 +44,18 @@ public class ChunkOres extends ConcurrentHashMap<Vec3i, ChunkBlockConfig> {
      * @return this
      */
     public ChunkOres remapToBlockCoordinates(int bottomSectionCord) {
+        if (this.remapped) {
+            return this; // Already remapped, avoid double remapping
+        }
+
         this.remapped = true;
         this.bottomSectionCord = bottomSectionCord;
         HashMap<Vec3i, ChunkBlockConfig> clone = new HashMap<>(this);
         clear();
-        for (Map.Entry<Vec3i, ChunkBlockConfig> pair : clone.entrySet())
-            put(toBlockCoord(pair.getKey(), this.pos, bottomSectionCord), pair.getValue());
+        for (Map.Entry<Vec3i, ChunkBlockConfig> pair : clone.entrySet()) {
+            Vec3i blockCoord = toBlockCoord(pair.getKey(), this.pos, bottomSectionCord);
+            put(blockCoord, pair.getValue());
+        }
         return this;
     }
 
@@ -62,9 +68,11 @@ public class ChunkOres extends ConcurrentHashMap<Vec3i, ChunkBlockConfig> {
     }
 
     public static Vec3i toBlockCoord(Vec3i localPos, Vec3i sectionPos, int bottomSectionCord) {
+        int worldY = ChunkSectionPos.getBlockCoord(sectionPos.getY() + bottomSectionCord) + localPos.getY();
+
         return new Vec3i(
                 ChunkSectionPos.getBlockCoord(sectionPos.getX()) + localPos.getX(),
-                ChunkSectionPos.getBlockCoord(sectionPos.getY() + bottomSectionCord) + localPos.getY(),
+                worldY,
                 ChunkSectionPos.getBlockCoord(sectionPos.getZ()) + localPos.getZ()
         );
     }
