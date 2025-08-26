@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-25T23:08:47.5957157	Ironbark/Model Definitions
+// 1.21.1	2025-08-26T14:57:00.8382993	Ironbark/Model Definitions
 06755fdb2c16157f14506ebbff1493bf682507a3 assets\ironbark\blockstates\deepslate_anthracite_coal_ore.json
 83446ddc5744c581c73676c959297b35e0b1eb74 assets\ironbark\models\item\steel_ingot.json
 d5cdff58e26d6fd89ebbb88eaa1aed3bd23c1614 assets\ironbark\models\item\spice_skypepper.json
@@ -8,6 +8,7 @@ a84ec9a2a516435e458eec2bf8cbfd52543a6f0d assets\ironbark\models\item\mortar.json
 76d7457a53ebe75938a38bf90b4b5c7d6a12c56e assets\ironbark\models\item\spruce_sap.json
 7d2f0579c4c59a142fa3626ea91d518fff7cab15 assets\ironbark\models\item\deepslate_anthracite_coal_ore.json
 e6961596c71c4c5a0e229303e48986315a989d83 assets\ironbark\models\item\spice_goldenbloom.json
+00515e5f4a3e33764a10ce67a847c1daeb3f8471 assets\ironbark\models\item\end_star.json
 49bae5e7afcb87eb13f87897600466ce71bd135b assets\ironbark\models\item\spice_brightburst.json
 020953a3a8713b2a4ff732f7bc34492a4e150f32 assets\ironbark\models\item\spice_smolderroot.json
 da22d57a6dd263c882f7ba9bd1e92f162b5a5a09 assets\ironbark\models\item\jungle_sap.json

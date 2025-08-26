@@ -39,5 +39,6 @@ public class IronbarkModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ItemInit.SPICE_MIX, Models.GENERATED);
         itemModelGenerator.register(ItemInit.ANCIENT_CLAY_TABLET, Models.GENERATED);
         itemModelGenerator.register(ItemInit.MORTAR, Models.GENERATED);
+        itemModelGenerator.register(ItemInit.END_STAR, Models.GENERATED);
     }
 }

@@ -13,6 +13,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -21,6 +23,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,8 +47,14 @@ public class AncientClayTabletItem extends Item implements ExtendedScreenHandler
 
         ItemStack itemStack = user.getStackInHand(hand);
 
-        if (!world.isClient && user instanceof ServerPlayerEntity player) {
-            player.openHandledScreen(this);
+        RecipeEntry<TabletCraftingRecipe> recipeEntry = getRecipeEntry(world, itemStack).orElse(null);
+        if (recipeEntry != null) {
+            if (!world.isClient && user instanceof ServerPlayerEntity player) {
+                player.openHandledScreen(this);
+            }
+        } else {
+            AncientClayTabletItem.breakTablet(itemStack, user);
+            return TypedActionResult.fail(itemStack);
         }
 
         return TypedActionResult.success(itemStack);
@@ -58,6 +68,40 @@ public class AncientClayTabletItem extends Item implements ExtendedScreenHandler
             addRecipeTooltip(stack, context, tooltip, Formatting.GOLD);
         } else {
             addRecipeTooltip(stack, context, tooltip, Formatting.DARK_PURPLE, Formatting.OBFUSCATED);
+        }
+    }
+
+    public static void breakTablet(ItemStack itemStack, PlayerEntity player) {
+        World world = player.getWorld();
+        if (!itemStack.isEmpty()) {
+            // Play breaking sound
+            if (!player.isSilent()) {
+                world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        itemStack.getBreakSound(), player.getSoundCategory(), 1.0F, 1.0F);
+            }
+
+            // Spawn breaking particles on client side
+            if (world.isClient) {
+                spawnItemParticles(itemStack, player, 10);
+            }
+
+            itemStack.decrement(1);
+        }
+    }
+
+    private static void spawnItemParticles(ItemStack stack, PlayerEntity player, int count) {
+        World world = player.getWorld();
+        Random random = player.getRandom();
+        for(int i = 0; i < count; ++i) {
+            Vec3d vec3d = new Vec3d(((double)random.nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0);
+            vec3d = vec3d.rotateX(-player.getPitch() * 0.017453292F);
+            vec3d = vec3d.rotateY(-player.getYaw() * 0.017453292F);
+            double d = (double)(-random.nextFloat()) * 0.6 - 0.3;
+            Vec3d vec3d2 = new Vec3d(((double)random.nextFloat() - 0.5) * 0.3, d, 0.6);
+            vec3d2 = vec3d2.rotateX(-player.getPitch() * 0.017453292F);
+            vec3d2 = vec3d2.rotateY(-player.getYaw() * 0.017453292F);
+            vec3d2 = vec3d2.add(player.getX(), player.getEyeY(), player.getZ());
+            world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), vec3d2.x, vec3d2.y, vec3d2.z, vec3d.x, vec3d.y + 0.05, vec3d.z);
         }
     }
 

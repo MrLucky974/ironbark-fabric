@@ -42,5 +42,12 @@ public class IronbarkRecipeProvider extends FabricRecipeProvider {
                 .pattern("   ")
                 .input('n', ItemInit.NETHERIUM_INGOT)
                 .offerTo(recipeExporter, Ironbark.id("netherium_plate_tablet"));
+
+        TabletCraftingRecipeBuilder.create(ItemInit.END_STAR)
+                .pattern("   ")
+                .pattern(" s ")
+                .pattern("   ")
+                .input('s', Items.NETHER_STAR)
+                .offerTo(recipeExporter, Ironbark.id("end_star_tablet"));
     }
 }

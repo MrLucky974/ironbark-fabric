@@ -62,6 +62,7 @@ public class IronbarkEnglishLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(BlockInit.ANTHRACITE_COAL_BLOCK, "Anthracite Coal Block");
         translationBuilder.add(ItemInit.MORTAR, "Mortar");
         translationBuilder.add(TagList.Items.SPICY_ITEM_BLACKLIST, "Spicy Items Blacklist");
+        translationBuilder.add(ItemInit.END_STAR, "End Star");
 
         addEmiRecipeCategory(translationBuilder, IronbarkEmiPlugin.MORTAR_RECIPE_CATEGORY, "Mortar");
 

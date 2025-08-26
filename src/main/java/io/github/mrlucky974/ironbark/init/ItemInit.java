@@ -4,6 +4,7 @@ import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.item.*;
 import io.github.mrlucky974.ironbark.list.FoodList;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -57,6 +58,13 @@ public class ItemInit {
             new AncientClayTabletItem(new Item.Settings().maxCount(1).rarity(ExtendedRarity.ANCIENT)));
 
     public static final Item MORTAR = register("mortar", new MortarItem(new Item.Settings().maxCount(1)));
+
+    public static final Item END_STAR = register("end_star",
+            new Item(new Item.Settings()
+                    .rarity(ExtendedRarity.LEGENDARY)
+                    .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)
+            )
+    );
 
     public static <T extends Item> T register(String name, T item) {
         return Registry.register(Registries.ITEM, Ironbark.id(name), item);

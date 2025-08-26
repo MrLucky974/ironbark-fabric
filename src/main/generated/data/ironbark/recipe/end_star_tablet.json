@@ -1,0 +1,17 @@
+{
+  "type": "ironbark:tablet_crafting",
+  "key": {
+    "s": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "   ",
+    " s ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ironbark:end_star"
+  }
+}

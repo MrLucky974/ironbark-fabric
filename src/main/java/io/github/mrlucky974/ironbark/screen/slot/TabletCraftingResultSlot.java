@@ -2,12 +2,14 @@ package io.github.mrlucky974.ironbark.screen.slot;
 
 import io.github.mrlucky974.ironbark.init.RecipeInit;
 import io.github.mrlucky974.ironbark.inventory.TabletRecipeInputInventory;
+import io.github.mrlucky974.ironbark.item.AncientClayTabletItem;
 import io.github.mrlucky974.ironbark.recipe.input.TabletCraftingRecipeInput;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 
 public class TabletCraftingResultSlot extends Slot {
@@ -85,6 +87,12 @@ public class TabletCraftingResultSlot extends Slot {
             }
         }
 
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            serverPlayer.closeHandledScreen();
+        }
+
+        ItemStack mainHandStack = player.getMainHandStack();
+        AncientClayTabletItem.breakTablet(mainHandStack, player);
     }
 
     public boolean disablesDynamicDisplay() {
