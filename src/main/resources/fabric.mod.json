@@ -24,6 +24,9 @@
     ],
     "emi": [
       "io.github.mrlucky974.ironbark.emi.IronbarkEmiPlugin"
+    ],
+    "tweed4:config": [
+      "io.github.mrlucky974.ironbark.config.IronbarkConfig"
     ]
   },
   "mixins": [

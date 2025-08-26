@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-26T16:15:46.9544077	Ironbark/Model Definitions
+// 1.21.1	2025-08-26T17:10:56.308017	Ironbark/Model Definitions
 abe1f2b45c2ee25ca382323242aa9778df0a5aec assets\ironbark\models\item\industrial_netherium_block.json
 c58771ca427716afdc58be971fdc613f949c838b assets\ironbark\blockstates\steel_block.json
 06755fdb2c16157f14506ebbff1493bf682507a3 assets\ironbark\blockstates\deepslate_anthracite_coal_ore.json
@@ -28,8 +28,8 @@ b12f77e7ff3c6aa273cb29f37ae0d72b187419de assets\ironbark\models\item\anthracite_
 1297074a796a1accb52b03f55135ff8c32462473 assets\ironbark\models\block\deepslate_anthracite_coal_ore.json
 6edb2976ba0527598438bce44626c67f2188ba35 assets\ironbark\models\item\spice_ashthorn.json
 e19375573318f9287e2bec9c7ea3a9da3095fdc0 assets\ironbark\models\item\bark.json
-44bb1e3c1afda0f7d3ca6bd89fd4559da87f5763 assets\ironbark\models\item\netherium_ingot.json
 cf6b45bddd9ce884834aac454910e9173d160101 assets\ironbark\models\item\dough.json
+44bb1e3c1afda0f7d3ca6bd89fd4559da87f5763 assets\ironbark\models\item\netherium_ingot.json
 7bbdf3eb88dbf0cb97473cc6532c865235f0bf87 assets\ironbark\models\block\industrial_netherium_block.json
 c94f132d3a7b0aa427a707d2375b90700b2f4c68 assets\ironbark\models\block\steel_block.json
 090dd54eba74bfbbc561fe7cfcd9adf167451290 assets\ironbark\models\block\anthracite_coal_block.json

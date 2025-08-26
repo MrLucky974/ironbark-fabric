@@ -34,6 +34,11 @@ repositories {
         url = "https://jitpack.io"
     }
 
+    maven {
+        name "Siphalor's Maven"
+        url "https://maven.siphalor.de/"
+    }
+
     repositories.named("Mojang", MavenArtifactRepository) {
         artifactUrls ArtifactRepositoryContainer.MAVEN_CENTRAL_URL
     }
@@ -49,6 +54,16 @@ dependencies {
     modImplementation "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
     modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
+
+    include(modApi("de.siphalor.tweed4:tweed4-data-$minecraft_major_version:1.2.1+"))
+    include(modApi("de.siphalor.tweed4:tweed4-data-hjson-$minecraft_major_version:1.1.1+"))
+}
+
+configurations.include.transitive = true
+configurations.include.dependencies.each {
+    if (!it.name.contains("bom")) {
+        it.transitive = false
+    }
 }
 
 processResources {

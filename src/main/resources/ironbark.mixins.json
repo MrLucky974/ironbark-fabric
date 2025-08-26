@@ -5,9 +5,20 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractCookingRecipeMixin",
-    "ItemMixin"
+    "ItemMixin",
+    "PlayerEntityMixin",
+    "WorldMixin",
+    "server.ServerChunkLoadingManagerAccessor"
+  ],
+  "server": [
+    "server.PlayerManagerMixin",
+    "server.ServerWorldMixin"
   ],
   "client": [
+    "client.ClientPlayerEntityMixin",
+    "client.ClientWorldMixin",
+    "client.WorldRendererAccessor",
+    "client.WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

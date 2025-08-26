@@ -3,6 +3,7 @@ package io.github.mrlucky974.ironbark.data.provider;
 import io.github.mrlucky974.ironbark.init.BlockInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagEntry;
@@ -16,6 +17,9 @@ public class IronbarkBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        getOrCreateTagBuilder(ConventionalBlockTags.COAL_ORES)
+                .add(BlockInit.DEEPSLATE_ANTHRACITE_COAL_ORE);
+
         getOrCreateTagBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(BlockInit.NETHERIUM_BLOCK)
                 .add(BlockInit.INDUSTRIAL_NETHERIUM_BLOCK);
