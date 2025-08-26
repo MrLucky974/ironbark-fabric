@@ -2,6 +2,7 @@ package io.github.mrlucky974.ironbark.item;
 
 import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.init.ComponentInit;
+import io.github.mrlucky974.ironbark.init.RecipeInit;
 import io.github.mrlucky974.ironbark.recipe.TabletCraftingRecipe;
 import io.github.mrlucky974.ironbark.screen.CraftingTabletScreenHandler;
 import net.minecraft.client.MinecraftClient;
@@ -61,7 +62,7 @@ public class AncientClayTabletItem extends Item implements NamedScreenHandlerFac
 
     public static Optional<RecipeEntry<TabletCraftingRecipe>> getRecipeEntry(World world, ItemStack stack) {
         return Optional.ofNullable(stack.get(ComponentInit.RECIPE_REFERENCE_COMPONENT))
-                .map(component -> component.getRecipeEntry(world));
+                .map(component -> component.getRecipeEntry(RecipeInit.TypeInit.TABLET_CRAFTING, world));
     }
 
     private void addRecipeTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, Formatting... formatting) {

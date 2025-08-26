@@ -12,10 +12,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeMatcher;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
@@ -50,7 +47,7 @@ public class CraftingTabletScreenHandler extends AbstractRecipeScreenHandler<Cra
 
         this.context.run((world, blockPos) ->
                 this.recipeEntry = AncientClayTabletItem.getRecipeEntry(world, player.getMainHandStack())
-                .orElseThrow());
+                .orElse(null));
 
         this.addSlot(new CraftingResultSlot(playerInventory.player, this.input, this.result, 0, 124, 35));
 
@@ -80,7 +77,8 @@ public class CraftingTabletScreenHandler extends AbstractRecipeScreenHandler<Cra
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
             ItemStack itemStack = ItemStack.EMPTY;
 
-            Optional<RecipeEntry<TabletCraftingRecipe>> optional = Objects.requireNonNull(world.getServer()).getRecipeManager().getFirstMatch(RecipeInit.TypeInit.TABLET_CRAFTING, craftingRecipeInput, world, ((CraftingTabletScreenHandler) handler).recipeEntry);
+            RecipeManager recipeManager = Objects.requireNonNull(world.getServer()).getRecipeManager();
+            Optional<RecipeEntry<TabletCraftingRecipe>> optional = recipeManager.getFirstMatch(RecipeInit.TypeInit.TABLET_CRAFTING, craftingRecipeInput, world, ((CraftingTabletScreenHandler) handler).recipeEntry);
             if (optional.isPresent()) {
                 RecipeEntry<TabletCraftingRecipe> recipeEntry = optional.get();
                 TabletCraftingRecipe craftingRecipe = recipeEntry.value();
@@ -137,7 +135,7 @@ public class CraftingTabletScreenHandler extends AbstractRecipeScreenHandler<Cra
     }
 
     public boolean canUse(PlayerEntity player) {
-        return !player.getMainHandStack().isEmpty();
+        return !player.getMainHandStack().isEmpty() && this.recipeEntry != null;
     }
 
     public ItemStack quickMove(PlayerEntity player, int slot) {
