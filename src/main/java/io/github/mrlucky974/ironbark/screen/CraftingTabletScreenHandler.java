@@ -1,24 +1,25 @@
 package io.github.mrlucky974.ironbark.screen;
 
+import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.init.RecipeInit;
 import io.github.mrlucky974.ironbark.init.ScreenHandlerTypeInit;
-import io.github.mrlucky974.ironbark.item.AncientClayTabletItem;
+import io.github.mrlucky974.ironbark.inventory.TabletCraftingInventory;
+import io.github.mrlucky974.ironbark.inventory.TabletRecipeInputInventory;
+import io.github.mrlucky974.ironbark.network.TabletCraftingRecipeEntryPayload;
 import io.github.mrlucky974.ironbark.recipe.TabletCraftingRecipe;
+import io.github.mrlucky974.ironbark.recipe.input.TabletCraftingRecipeInput;
+import io.github.mrlucky974.ironbark.screen.slot.TabletCraftingResultSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.CraftingResultSlot;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
@@ -26,30 +27,27 @@ import net.minecraft.world.World;
 import java.util.Objects;
 import java.util.Optional;
 
-public class CraftingTabletScreenHandler extends AbstractRecipeScreenHandler<CraftingRecipeInput, TabletCraftingRecipe> {
-    private final RecipeInputInventory input;
+public class CraftingTabletScreenHandler extends AbstractRecipeScreenHandler<TabletCraftingRecipeInput, TabletCraftingRecipe> {
+    private final TabletRecipeInputInventory input;
     private final CraftingResultInventory result;
     private final ScreenHandlerContext context;
     private final PlayerEntity player;
-    private RecipeEntry<TabletCraftingRecipe> recipeEntry;
+    private final RecipeEntry<TabletCraftingRecipe> recipeEntry;
     private boolean filling;
 
-    public CraftingTabletScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+    public CraftingTabletScreenHandler(int syncId, PlayerInventory playerInventory, TabletCraftingRecipeEntryPayload payload) {
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, payload.getRecipeEntry());
     }
 
-    public CraftingTabletScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+    public CraftingTabletScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, RecipeEntry<TabletCraftingRecipe> recipeEntry) {
         super(ScreenHandlerTypeInit.CRAFTING_TABLET, syncId);
-        this.input = new CraftingInventory(this, 3, 3);
+        this.input = new TabletCraftingInventory(this, 3, 3);
         this.result = new CraftingResultInventory();
         this.context = context;
         this.player = playerInventory.player;
+        this.recipeEntry = recipeEntry;
 
-        this.context.run((world, blockPos) ->
-                this.recipeEntry = AncientClayTabletItem.getRecipeEntry(world, player.getMainHandStack())
-                .orElse(null));
-
-        this.addSlot(new CraftingResultSlot(playerInventory.player, this.input, this.result, 0, 124, 35));
+        this.addSlot(new TabletCraftingResultSlot(playerInventory.player, this.input, this.result, 0, 124, 35));
 
         int i;
         int j;
@@ -71,17 +69,15 @@ public class CraftingTabletScreenHandler extends AbstractRecipeScreenHandler<Cra
 
     }
 
-    protected static void updateResult(ScreenHandler handler, World world, PlayerEntity player, RecipeInputInventory craftingInventory, CraftingResultInventory resultInventory) {
+    protected static void updateResult(ScreenHandler handler, World world, PlayerEntity player, TabletRecipeInputInventory craftingInventory, CraftingResultInventory resultInventory) {
         if (!world.isClient) {
-            CraftingRecipeInput craftingRecipeInput = craftingInventory.createRecipeInput();
+            TabletCraftingRecipeInput craftingRecipeInput = craftingInventory.createRecipeInput();
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
             ItemStack itemStack = ItemStack.EMPTY;
 
-            RecipeManager recipeManager = Objects.requireNonNull(world.getServer()).getRecipeManager();
-            Optional<RecipeEntry<TabletCraftingRecipe>> optional = recipeManager.getFirstMatch(RecipeInit.TypeInit.TABLET_CRAFTING, craftingRecipeInput, world, ((CraftingTabletScreenHandler) handler).recipeEntry);
-            if (optional.isPresent()) {
-                RecipeEntry<TabletCraftingRecipe> recipeEntry = optional.get();
-                TabletCraftingRecipe craftingRecipe = recipeEntry.value();
+            RecipeEntry<TabletCraftingRecipe> recipeEntry = ((CraftingTabletScreenHandler) handler).recipeEntry;
+            TabletCraftingRecipe craftingRecipe = recipeEntry.value();
+            if (craftingRecipe.matches(craftingRecipeInput, world)) {
                 if (resultInventory.shouldCraftRecipe(world, serverPlayerEntity, recipeEntry)) {
                     ItemStack itemStack2 = craftingRecipe.craft(craftingRecipeInput, world.getRegistryManager());
                     if (itemStack2.isItemEnabled(world.getEnabledFeatures())) {
@@ -213,5 +209,13 @@ public class CraftingTabletScreenHandler extends AbstractRecipeScreenHandler<Cra
 
     public boolean canInsertIntoSlot(int index) {
         return index != this.getCraftingResultSlotIndex();
+    }
+
+    public RecipeEntry<TabletCraftingRecipe> getRecipeEntry() {
+        return this.recipeEntry;
+    }
+
+    public TabletRecipeInputInventory getInput() {
+        return this.input;
     }
 }

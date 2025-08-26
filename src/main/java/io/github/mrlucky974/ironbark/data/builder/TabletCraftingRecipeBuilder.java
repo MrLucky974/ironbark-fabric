@@ -1,5 +1,6 @@
 package io.github.mrlucky974.ironbark.data.builder;
 
+import io.github.mrlucky974.ironbark.recipe.RawTabletShapedRecipe;
 import io.github.mrlucky974.ironbark.recipe.TabletCraftingRecipe;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
@@ -114,7 +115,7 @@ public class TabletCraftingRecipeBuilder {
         }
     }
 
-    private RawShapedRecipe createRawShapedRecipe() {
+    private RawTabletShapedRecipe createRawShapedRecipe() {
         int width = this.pattern.getFirst().length();
         int height = this.pattern.size();
         DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(width * height, Ingredient.EMPTY);
@@ -129,7 +130,7 @@ public class TabletCraftingRecipeBuilder {
             }
         }
 
-        return new RawShapedRecipe(width, height, ingredients, Optional.of(new RawShapedRecipe.Data(this.key, this.pattern)));
+        return new RawTabletShapedRecipe(width, height, ingredients, Optional.of(new RawTabletShapedRecipe.Data(this.key, this.pattern)));
     }
 
     private static Identifier getItemId(Item item) {

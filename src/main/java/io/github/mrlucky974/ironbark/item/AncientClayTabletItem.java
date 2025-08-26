@@ -3,8 +3,10 @@ package io.github.mrlucky974.ironbark.item;
 import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.init.ComponentInit;
 import io.github.mrlucky974.ironbark.init.RecipeInit;
+import io.github.mrlucky974.ironbark.network.TabletCraftingRecipeEntryPayload;
 import io.github.mrlucky974.ironbark.recipe.TabletCraftingRecipe;
 import io.github.mrlucky974.ironbark.screen.CraftingTabletScreenHandler;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -12,7 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class AncientClayTabletItem extends Item implements NamedScreenHandlerFactory {
+public class AncientClayTabletItem extends Item implements ExtendedScreenHandlerFactory<TabletCraftingRecipeEntryPayload> {
     private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
     public static final Text INVALID_RECIPE_TOOLTIP_KEY =
             Text.translatable("item." + Ironbark.MOD_ID + ".ancient_clay_tablet.tooltip.invalid_recipe")
@@ -86,7 +87,16 @@ public class AncientClayTabletItem extends Item implements NamedScreenHandlerFac
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        ScreenHandlerContext context = ScreenHandlerContext.create(player.getWorld(), player.getBlockPos());
-        return new CraftingTabletScreenHandler(syncId, playerInventory, context);
+        World world = player.getWorld();
+        ScreenHandlerContext context = ScreenHandlerContext.create(world, player.getBlockPos());
+        RecipeEntry<TabletCraftingRecipe> recipeEntry = getRecipeEntry(world, player.getMainHandStack()).orElse(null);
+        return new CraftingTabletScreenHandler(syncId, playerInventory, context, recipeEntry);
+    }
+
+    @Override
+    public TabletCraftingRecipeEntryPayload getScreenOpeningData(ServerPlayerEntity player) {
+        ItemStack itemStack = player.getMainHandStack();
+        Optional<RecipeEntry<TabletCraftingRecipe>> recipeEntry = getRecipeEntry(player.getWorld(), itemStack);
+        return new TabletCraftingRecipeEntryPayload(recipeEntry.orElse(null));
     }
 }

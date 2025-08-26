@@ -2,23 +2,23 @@ package io.github.mrlucky974.ironbark.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.mrlucky974.ironbark.recipe.input.TabletCraftingRecipeInput;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
-import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-public record TabletCraftingRecipe(RawShapedRecipe raw, ItemStack result) implements Recipe<CraftingRecipeInput> {
+public record TabletCraftingRecipe(RawTabletShapedRecipe raw, ItemStack result) implements Recipe<TabletCraftingRecipeInput> {
     @Override
-    public boolean matches(CraftingRecipeInput input, World world) {
+    public boolean matches(TabletCraftingRecipeInput input, World world) {
         return this.raw.matches(input);
     }
 
     @Override
-    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack craft(TabletCraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         return this.getResult(lookup).copy();
     }
 
@@ -35,6 +35,11 @@ public record TabletCraftingRecipe(RawShapedRecipe raw, ItemStack result) implem
     public boolean isEmpty() {
         DefaultedList<Ingredient> defaultedList = this.getIngredients();
         return defaultedList.isEmpty() || defaultedList.stream().filter((ingredient) -> !ingredient.isEmpty()).anyMatch((ingredient) -> ingredient.getMatchingStacks().length == 0);
+    }
+
+    @Override
+    public DefaultedList<Ingredient> getIngredients() {
+        return this.raw.getIngredients();
     }
 
     @Override
@@ -57,7 +62,7 @@ public record TabletCraftingRecipe(RawShapedRecipe raw, ItemStack result) implem
         public static final Serializer INSTANCE = new Serializer();
 
         public static final MapCodec<TabletCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                RawShapedRecipe.CODEC.forGetter((recipe) -> recipe.raw),
+                RawTabletShapedRecipe.CODEC.forGetter((recipe) -> recipe.raw),
                 ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter((recipe) -> recipe.result)
         ).apply(instance, TabletCraftingRecipe::new));
         public static final PacketCodec<RegistryByteBuf, TabletCraftingRecipe> PACKET_CODEC = PacketCodec.ofStatic(TabletCraftingRecipe.Serializer::write, TabletCraftingRecipe.Serializer::read);
@@ -71,13 +76,13 @@ public record TabletCraftingRecipe(RawShapedRecipe raw, ItemStack result) implem
         }
 
         private static TabletCraftingRecipe read(RegistryByteBuf buf) {
-            RawShapedRecipe rawShapedRecipe = RawShapedRecipe.PACKET_CODEC.decode(buf);
+            RawTabletShapedRecipe rawShapedRecipe = RawTabletShapedRecipe.PACKET_CODEC.decode(buf);
             ItemStack itemStack = ItemStack.PACKET_CODEC.decode(buf);
             return new TabletCraftingRecipe(rawShapedRecipe, itemStack);
         }
 
         private static void write(RegistryByteBuf buf, TabletCraftingRecipe recipe) {
-            RawShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
+            RawTabletShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
             ItemStack.PACKET_CODEC.encode(buf, recipe.result);
         }
     }

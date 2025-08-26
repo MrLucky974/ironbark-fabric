@@ -33,6 +33,10 @@ repositories {
     maven {
         url = "https://jitpack.io"
     }
+
+    repositories.named("Mojang", MavenArtifactRepository) {
+        artifactUrls ArtifactRepositoryContainer.MAVEN_CENTRAL_URL
+    }
 }
 
 dependencies {
