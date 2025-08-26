@@ -2,11 +2,12 @@ package io.github.mrlucky974.ironbark.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.mrlucky974.ironbark.init.RecipeInit;
-import io.github.mrlucky974.ironbark.recipe.TabletCraftingRecipe;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -23,12 +24,12 @@ public record RecipeReferenceComponent(Identifier recipeId) {
                     RecipeReferenceComponent::new
             );
 
-    public RecipeEntry<TabletCraftingRecipe> getRecipeEntry(World world) {
+    public <I extends RecipeInput, T extends Recipe<I>> RecipeEntry<T> getRecipeEntry(RecipeType<T> type, World world) {
         return world.getRecipeManager()
-                .listAllOfType(RecipeInit.TypeInit.TABLET_CRAFTING)
+                .listAllOfType(type)
                 .stream()
                 .filter(entry -> entry.id().equals(this.recipeId))
                 .findFirst()
-                .orElseThrow();
+                .orElse(null);
     }
 }
