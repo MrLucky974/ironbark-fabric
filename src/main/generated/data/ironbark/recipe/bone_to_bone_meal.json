@@ -1,0 +1,10 @@
+{
+  "type": "ironbark:mortar",
+  "input": {
+    "item": "minecraft:bone"
+  },
+  "output": {
+    "count": 9,
+    "id": "minecraft:bone_meal"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "dough_to_bread",
+  "ingredient": {
+    "item": "ironbark:dough"
+  },
+  "result": {
+    "id": "minecraft:bread"
+  }
+}

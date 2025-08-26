@@ -1,0 +1,17 @@
+{
+  "type": "ironbark:tablet_crafting",
+  "key": {
+    "n": {
+      "item": "ironbark:netherium_ingot"
+    }
+  },
+  "pattern": [
+    "   ",
+    "nnn",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ironbark:netherium_plate"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "replace": true,
+  "values": [
+    "minecraft:golden_apple",
+    "minecraft:enchanted_golden_apple",
+    "minecraft:suspicious_stew",
+    "minecraft:mushroom_stew",
+    "minecraft:honey_bottle",
+    "minecraft:milk_bucket",
+    "minecraft:poisonous_potato"
+  ]
+}

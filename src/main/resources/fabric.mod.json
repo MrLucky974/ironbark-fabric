@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "ironbark",
+  "version": "${version}",
+  "name": "Ironbark",
+  "description": "Adds new decoration elements and cool stuff",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/ironbark/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "io.github.mrlucky974.ironbark.client.IronbarkDataGenerator"
+    ],
+    "client": [
+      "io.github.mrlucky974.ironbark.client.IronbarkClient"
+    ],
+    "main": [
+      "io.github.mrlucky974.ironbark.Ironbark"
+    ],
+    "mm:early_risers": [
+      "io.github.mrlucky974.ironbark.asm.EarlyRiser"
+    ],
+    "emi": [
+      "io.github.mrlucky974.ironbark.emi.IronbarkEmiPlugin"
+    ]
+  },
+  "mixins": [
+    "ironbark.mixins.json"
+  ],
+  "accessWidener" : "ironbark.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
