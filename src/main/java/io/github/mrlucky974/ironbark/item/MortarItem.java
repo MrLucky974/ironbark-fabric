@@ -59,7 +59,6 @@ public class MortarItem extends Item {
         }
 
         input.decrement(1);
-
         world.playSound(null, player.getBlockPos(), SoundList.MORTAR_ITEM_CRAFTED, SoundCategory.PLAYERS);
     }
 }

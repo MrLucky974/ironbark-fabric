@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "ironbark:item/iron_coin_1",
+      "predicate": {
+        "minecraft:stack": 0.25
+      }
+    },
+    {
+      "model": "ironbark:item/iron_coin_2",
+      "predicate": {
+        "minecraft:stack": 0.5
+      }
+    },
+    {
+      "model": "ironbark:item/iron_coin_3",
+      "predicate": {
+        "minecraft:stack": 0.75
+      }
+    },
+    {
+      "model": "ironbark:item/iron_coin_4",
+      "predicate": {
+        "minecraft:stack": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "ironbark:item/iron_coin"
+  }
+}

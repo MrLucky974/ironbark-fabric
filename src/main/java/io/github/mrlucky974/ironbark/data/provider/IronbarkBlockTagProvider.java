@@ -32,6 +32,8 @@ public class IronbarkBlockTagProvider extends FabricTagProvider.BlockTagProvider
                 .add(BlockInit.NETHERIUM_BLOCK)
                 .add(BlockInit.INDUSTRIAL_NETHERIUM_BLOCK)
                 .add(BlockInit.ANTHRACITE_COAL_BLOCK)
-                .add(BlockInit.DEEPSLATE_ANTHRACITE_COAL_ORE);
+                .add(BlockInit.CHARCOAL_BLOCK)
+                .add(BlockInit.DEEPSLATE_ANTHRACITE_COAL_ORE)
+                .add(BlockInit.ROSE_GOLD_BLOCK);
     }
 }

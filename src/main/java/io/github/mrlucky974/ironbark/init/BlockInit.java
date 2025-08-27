@@ -1,6 +1,8 @@
 package io.github.mrlucky974.ironbark.init;
 
 import io.github.mrlucky974.ironbark.Ironbark;
+import io.github.mrlucky974.ironbark.block.BankBlock;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ExperienceDroppingBlock;
@@ -12,10 +14,13 @@ import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 public class BlockInit {
     public static final Block DEEPSLATE_ANTHRACITE_COAL_ORE = registerWithItem("deepslate_anthracite_coal_ore", new ExperienceDroppingBlock(UniformIntProvider.create(0, 2),Block.Settings.copy(Blocks.DEEPSLATE_COAL_ORE).strength(5.5F, 3.0F)));
-    public static final Block ANTHRACITE_COAL_BLOCK = registerWithItem("anthracite_coal_block", new ExperienceDroppingBlock(UniformIntProvider.create(0, 2),Block.Settings.copy(net.minecraft.block.Blocks.COAL_BLOCK)));
+    public static final Block ANTHRACITE_COAL_BLOCK = registerWithItem("anthracite_coal_block", new Block(Block.Settings.copy(net.minecraft.block.Blocks.COAL_BLOCK)));
+    public static final Block CHARCOAL_BLOCK = registerWithItem("charcoal_block", new Block(Block.Settings.copy(net.minecraft.block.Blocks.COAL_BLOCK)));
     public static final Block NETHERIUM_BLOCK = registerWithItem("netherium_block", new Block(Block.Settings.copy(Blocks.NETHERITE_BLOCK)));
     public static final Block INDUSTRIAL_NETHERIUM_BLOCK = registerWithItem("industrial_netherium_block", new Block(Block.Settings.copy(Blocks.NETHERITE_BLOCK)));
     public static final Block STEEL_BLOCK = registerWithItem("steel_block", new Block(Block.Settings.copy(Blocks.IRON_BLOCK).strength(7.0F, 9.0F)));
+    public static final Block ROSE_GOLD_BLOCK = registerWithItem("rose_gold_block", new Block(Block.Settings.copy(Blocks.GOLD_BLOCK)));
+    public static final Block BANK = registerWithItem("bank", new BankBlock(Block.Settings.copy(Blocks.JUKEBOX)));
 
     public static <T extends Block> T register(String name, T block) {
         return Registry.register(Registries.BLOCK, Ironbark.id(name), block);

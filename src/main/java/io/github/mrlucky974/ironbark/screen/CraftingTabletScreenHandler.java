@@ -71,7 +71,6 @@ public class CraftingTabletScreenHandler extends AbstractRecipeScreenHandler<Tab
         for(i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
-
     }
 
     protected static void updateResult(ScreenHandler handler, World world, PlayerEntity player, TabletRecipeInputInventory craftingInventory, CraftingResultInventory resultInventory) {

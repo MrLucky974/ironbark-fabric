@@ -1,0 +1,6 @@
+{
+  "parent": "ironbark:item/rose_gold_coin",
+  "textures": {
+    "layer0": "ironbark:item/rose_gold_coin_3"
+  }
+}

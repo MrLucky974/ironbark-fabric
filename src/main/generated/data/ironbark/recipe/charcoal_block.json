@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "item": "minecraft:charcoal"
+    }
+  },
+  "pattern": [
+    "iii",
+    "iii",
+    "iii"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ironbark:charcoal_block"
+  }
+}

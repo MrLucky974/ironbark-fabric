@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ironbark:anthracite_coal_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ironbark:anthracite_coal"
+  }
+}

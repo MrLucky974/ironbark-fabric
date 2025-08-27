@@ -4,6 +4,8 @@
     "ironbark:netherium_block",
     "ironbark:industrial_netherium_block",
     "ironbark:anthracite_coal_block",
-    "ironbark:deepslate_anthracite_coal_ore"
+    "ironbark:charcoal_block",
+    "ironbark:deepslate_anthracite_coal_ore",
+    "ironbark:rose_gold_block"
   ]
 }

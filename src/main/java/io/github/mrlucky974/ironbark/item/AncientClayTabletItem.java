@@ -33,7 +33,7 @@ import java.util.Optional;
 
 public class AncientClayTabletItem extends Item implements ExtendedScreenHandlerFactory<TabletCraftingRecipeEntryPayload> {
     private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
-    public static final Text INVALID_RECIPE_TOOLTIP_KEY =
+    public static final Text INVALID_RECIPE_TOOLTIP =
             Text.translatable("item." + Ironbark.MOD_ID + ".ancient_clay_tablet.tooltip.invalid_recipe")
                     .formatted(Formatting.RED);
 
@@ -120,7 +120,7 @@ public class AncientClayTabletItem extends Item implements ExtendedScreenHandler
             ItemStack result = recipe.getResult(context.getRegistryLookup());
             tooltip.add(result.getName().copy().formatted(formatting));
         } else {
-            tooltip.add(INVALID_RECIPE_TOOLTIP_KEY);
+            tooltip.add(INVALID_RECIPE_TOOLTIP);
         }
     }
 

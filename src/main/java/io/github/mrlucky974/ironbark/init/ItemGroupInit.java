@@ -4,6 +4,7 @@ import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.component.RecipeReferenceComponent;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeManager;
@@ -11,6 +12,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 
+import java.util.Comparator;
 import java.util.Optional;
 
 public class ItemGroupInit {
@@ -28,6 +30,9 @@ public class ItemGroupInit {
                         .map(Registries.ITEM::getOrEmpty)
                         .map(Optional::orElseThrow)
                         .filter(item -> !ItemInit.BLACKLIST.contains(item))
+                        .sorted(Comparator.<Item, String>comparing(item -> item.getClass().getSimpleName())
+                                .thenComparing(item -> Registries.ITEM.getId(item).getPath())
+                        )
                         .forEach(entries::add);
             })
             .build());

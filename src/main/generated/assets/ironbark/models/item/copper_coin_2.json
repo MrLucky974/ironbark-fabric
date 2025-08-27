@@ -1,0 +1,6 @@
+{
+  "parent": "ironbark:item/copper_coin",
+  "textures": {
+    "layer0": "ironbark:item/copper_coin_2"
+  }
+}

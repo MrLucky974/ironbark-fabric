@@ -13,6 +13,7 @@ import net.minecraft.data.server.recipe.ComplexRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -47,28 +48,38 @@ public class IronbarkRecipeProvider extends FabricRecipeProvider {
                 .input('e', Items.ENDER_EYE)
                 .offerTo(recipeExporter, Ironbark.id("end_star_tablet"));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, BlockInit.STEEL_BLOCK, 1)
-                .pattern("iii")
-                .pattern("iii")
-                .pattern("iii")
-                .input('i', ItemInit.STEEL_INGOT)
-                .criterion(hasItem(ItemInit.STEEL_INGOT), conditionsFromItem(ItemInit.STEEL_INGOT))
-                .offerTo(recipeExporter);
+        addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.STEEL_BLOCK, ItemInit.STEEL_INGOT, recipeExporter);
+        addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.NETHERIUM_BLOCK, ItemInit.NETHERIUM_INGOT, recipeExporter);
+        addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.ROSE_GOLD_BLOCK, ItemInit.ROSE_GOLD_INGOT, recipeExporter);
+        addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.ANTHRACITE_COAL_BLOCK, ItemInit.ANTHRACITE_COAL, recipeExporter);
+        addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.CHARCOAL_BLOCK, Items.CHARCOAL, recipeExporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, BlockInit.NETHERIUM_BLOCK, 1)
-                .pattern("iii")
-                .pattern("iii")
-                .pattern("iii")
-                .input('i', ItemInit.NETHERIUM_INGOT)
-                .criterion(hasItem(ItemInit.NETHERIUM_INGOT), conditionsFromItem(ItemInit.NETHERIUM_INGOT))
-                .offerTo(recipeExporter);
+        addPackingRecipe(RecipeCategory.MISC, BlockInit.INDUSTRIAL_NETHERIUM_BLOCK, ItemInit.NETHERIUM_PLATE, recipeExporter);
+    }
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, BlockInit.INDUSTRIAL_NETHERIUM_BLOCK, 1)
+    private void addPackingAndUnpackingRecipes(RecipeCategory category, ItemConvertible packedResult, ItemConvertible ingredient,
+                                               RecipeExporter exporter) {
+        // Block from ingots (shaped)
+        addPackingRecipe(category, packedResult, ingredient, exporter);
+
+        // Ingots from block (shapeless)
+        addUnpackingRecipe(category, packedResult, ingredient, exporter);
+    }
+
+    private static void addUnpackingRecipe(RecipeCategory category, ItemConvertible packedResult, ItemConvertible ingredient, RecipeExporter exporter) {
+        ShapelessRecipeJsonBuilder.create(category, ingredient, 9)
+                .input(packedResult)
+                .criterion(hasItem(packedResult), conditionsFromItem(packedResult))
+                .offerTo(exporter);
+    }
+
+    private static void addPackingRecipe(RecipeCategory category, ItemConvertible packedResult, ItemConvertible ingredient, RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(category, packedResult, 1)
                 .pattern("iii")
                 .pattern("iii")
                 .pattern("iii")
-                .input('i', ItemInit.NETHERIUM_PLATE)
-                .criterion(hasItem(ItemInit.NETHERIUM_PLATE), conditionsFromItem(ItemInit.NETHERIUM_PLATE))
-                .offerTo(recipeExporter);
+                .input('i', ingredient)
+                .criterion(hasItem(ingredient), conditionsFromItem(ingredient))
+                .offerTo(exporter);
     }
 }

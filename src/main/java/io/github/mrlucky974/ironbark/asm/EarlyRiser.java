@@ -13,7 +13,7 @@ public class EarlyRiser implements Runnable {
 
         EnumAdder rarityEnumAdder = ClassTinkerers.enumBuilder(remapper.mapClassName("intermediary", "net.minecraft.class_1814"), "I", "Ljava/lang/String;", "Lnet/minecraft/util/Formatting;");
         rarityEnumAdder
-                .addEnum("LEGENDARY", 4, "legendary", Formatting.GOLD)
+                .addEnum("LEGENDARY", 4, "legendary", Formatting.BLUE)
                 .addEnum("ANCIENT", 5, "ancient", Formatting.DARK_RED)
                 .build();
     }

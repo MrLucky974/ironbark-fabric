@@ -1,0 +1,6 @@
+{
+  "parent": "ironbark:item/coin_sack",
+  "textures": {
+    "layer0": "ironbark:item/coin_sack_filled"
+  }
+}

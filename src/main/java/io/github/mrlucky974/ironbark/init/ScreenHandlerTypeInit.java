@@ -1,7 +1,9 @@
 package io.github.mrlucky974.ironbark.init;
 
 import io.github.mrlucky974.ironbark.Ironbark;
+import io.github.mrlucky974.ironbark.network.BlockPosPayload;
 import io.github.mrlucky974.ironbark.network.TabletCraftingRecipeEntryPayload;
+import io.github.mrlucky974.ironbark.screen.BankScreenHandler;
 import io.github.mrlucky974.ironbark.screen.CraftingTabletScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.network.RegistryByteBuf;
@@ -16,6 +18,9 @@ import net.minecraft.screen.ScreenHandlerType;
 public class ScreenHandlerTypeInit {
     public static final ScreenHandlerType<CraftingTabletScreenHandler> CRAFTING_TABLET =
             register("crafting_tablet", CraftingTabletScreenHandler::new, TabletCraftingRecipeEntryPayload.PACKET_CODEC);
+
+    public static final ScreenHandlerType<BankScreenHandler> BANK =
+            register("bank", BankScreenHandler::new, BlockPosPayload.PACKET_CODEC);
 
     public static <T extends ScreenHandler> ScreenHandlerType<T> register(String name, ScreenHandlerType.Factory<T> factory) {
         return Registry.register(Registries.SCREEN_HANDLER, Ironbark.id(name), new ScreenHandlerType<>(factory, FeatureFlags.VANILLA_FEATURES));

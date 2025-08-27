@@ -3,6 +3,7 @@ package io.github.mrlucky974.ironbark.init;
 import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.component.RecipeReferenceComponent;
 import io.github.mrlucky974.ironbark.component.SpiceEffectsComponent;
+import io.github.mrlucky974.ironbark.network.CoinSackComponent;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -18,6 +19,13 @@ public class ComponentInit {
             ComponentType.<RecipeReferenceComponent>builder()
                     .codec(RecipeReferenceComponent.CODEC)
                     .packetCodec(RecipeReferenceComponent.PACKET_CODEC)
+                    .build());
+
+
+    public static final ComponentType<CoinSackComponent> COIN_SACK_COMPONENT = register("coin_sack",
+            ComponentType.<CoinSackComponent>builder()
+                    .codec(CoinSackComponent.CODEC)
+                    .packetCodec(CoinSackComponent.PACKET_CODEC)
                     .build());
 
     public static <T extends ComponentType<?>> T register(String name, T component) {
