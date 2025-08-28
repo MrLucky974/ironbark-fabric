@@ -1,6 +1,7 @@
 package io.github.mrlucky974.ironbark.item;
 
 import io.github.mrlucky974.ironbark.Ironbark;
+import io.github.mrlucky974.ironbark.component.RecipeReferenceComponent;
 import io.github.mrlucky974.ironbark.init.ComponentInit;
 import io.github.mrlucky974.ironbark.init.RecipeInit;
 import io.github.mrlucky974.ironbark.network.TabletCraftingRecipeEntryPayload;
@@ -65,9 +66,9 @@ public class AncientClayTabletItem extends Item implements ExtendedScreenHandler
         super.appendTooltip(stack, context, tooltip, type);
 
         if (type.isCreative()) {
-            addRecipeTooltip(stack, context, tooltip, Formatting.GOLD);
+            addRecipeTooltip(stack, context, tooltip, type, Formatting.GOLD);
         } else {
-            addRecipeTooltip(stack, context, tooltip, Formatting.DARK_PURPLE, Formatting.OBFUSCATED);
+            addRecipeTooltip(stack, context, tooltip, type, Formatting.DARK_PURPLE, Formatting.OBFUSCATED);
         }
     }
 
@@ -110,7 +111,7 @@ public class AncientClayTabletItem extends Item implements ExtendedScreenHandler
                 .map(component -> component.getRecipeEntry(RecipeInit.TypeInit.TABLET_CRAFTING, world));
     }
 
-    private void addRecipeTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, Formatting... formatting) {
+    private void addRecipeTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type, Formatting... formatting) {
         Optional<RecipeEntry<TabletCraftingRecipe>> optionalRecipeEntry = Optional.ofNullable(CLIENT.world)
                 .flatMap(world -> getRecipeEntry(world, stack));
 
@@ -121,6 +122,15 @@ public class AncientClayTabletItem extends Item implements ExtendedScreenHandler
             tooltip.add(result.getName().copy().formatted(formatting));
         } else {
             tooltip.add(INVALID_RECIPE_TOOLTIP);
+        }
+
+        if (type.isAdvanced()) {
+            RecipeReferenceComponent component = stack.getOrDefault(ComponentInit.RECIPE_REFERENCE_COMPONENT, null);
+            if (component != null) {
+                tooltip.add(Text.literal("Recipe: %s".formatted(component.toString())).formatted(Formatting.DARK_GRAY));
+            } else {
+                tooltip.add(Text.literal("No recipe reference found!").formatted(Formatting.RED));
+            }
         }
     }
 

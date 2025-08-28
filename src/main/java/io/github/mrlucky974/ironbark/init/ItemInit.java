@@ -6,9 +6,7 @@ import io.github.mrlucky974.ironbark.list.FoodList;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Rarity;
@@ -100,6 +98,20 @@ public class ItemInit {
     public static final Item ULTIMATE_REPAIR_GEM = register("ultimate_repair_gem",
             new RepairGemItem(2, new Item.Settings().maxDamage(975).rarity(Rarity.EPIC)));
 
+    public static final Item IRON_SCYTHE = register("iron_scythe",
+            new ScytheItem(ToolMaterials.IRON,
+                    new Item.Settings()
+                            .attributeModifiers(ScytheItem.createAttributeModifiers(ToolMaterials.IRON, 6.0F, -2.4F))
+            )
+    );
+
+    public static final Item SOUL_SCYTHE = register("soul_scythe",
+            new ScytheItem(ToolMaterials.NETHERITE,
+                    new Item.Settings()
+                            .attributeModifiers(ScytheItem.createAttributeModifiers(ToolMaterials.NETHERITE, 5.0F, -2.4F))
+            )
+    );
+
     public static <T extends Item> T register(String name, T item) {
         return Registry.register(Registries.ITEM, Ironbark.id(name), item);
     }
@@ -108,6 +120,52 @@ public class ItemInit {
         Ironbark.LOGGER.info("Registering items...");
         ItemInit.BLACKLIST.add(ItemInit.SPICE_MIX);
         ItemInit.BLACKLIST.add(ItemInit.ANCIENT_CLAY_TABLET);
+
+        FilterInit.addItem(ItemInit.ANTHRACITE_COAL, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.STEEL_INGOT, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.ROSE_GOLD_INGOT, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.NETHERIUM_INGOT, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.NETHERIUM_PLATE, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.MULCH, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.SPRUCE_SAP, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.JUNGLE_SAP, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.BARK, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.CHARRED_BONE, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.DIAMOND_FRAGMENT, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.FLOUR, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.DOUGH, FilterInit.MATERIALS);
+        FilterInit.addItem(ItemInit.END_STAR, FilterInit.MATERIALS);
+
+        FilterInit.addItem(ItemInit.WEAK_REPAIR_GEM, FilterInit.REPAIR_GEMS);
+        FilterInit.addItem(ItemInit.BASIC_REPAIR_GEM, FilterInit.REPAIR_GEMS);
+        FilterInit.addItem(ItemInit.STRONG_REPAIR_GEM, FilterInit.REPAIR_GEMS);
+        FilterInit.addItem(ItemInit.BETTER_REPAIR_GEM, FilterInit.REPAIR_GEMS);
+        FilterInit.addItem(ItemInit.ULTIMATE_REPAIR_GEM, FilterInit.REPAIR_GEMS);
+
+        FilterInit.addItem(ItemInit.MORTAR, FilterInit.UTILITIES);
+        FilterInit.addItem(ItemInit.IRON_SCYTHE, FilterInit.UTILITIES);
+        FilterInit.addItem(ItemInit.SOUL_SCYTHE, FilterInit.UTILITIES);
+
+        FilterInit.addItem(ItemInit.COPPER_COIN, FilterInit.CURRENCY);
+        FilterInit.addItem(ItemInit.IRON_COIN, FilterInit.CURRENCY);
+        FilterInit.addItem(ItemInit.GOLD_COIN, FilterInit.CURRENCY);
+        FilterInit.addItem(ItemInit.ROSE_GOLD_COIN, FilterInit.CURRENCY);
+        FilterInit.addItem(BlockInit.BANK.asItem(), FilterInit.CURRENCY);
+        FilterInit.addItem(ItemInit.COIN_SACK, FilterInit.CURRENCY);
+
+        FilterInit.addItem(BlockInit.STEEL_BLOCK.asItem(), FilterInit.BLOCKS);
+        FilterInit.addItem(BlockInit.ROSE_GOLD_BLOCK.asItem(), FilterInit.BLOCKS);
+        FilterInit.addItem(BlockInit.CHARCOAL_BLOCK.asItem(), FilterInit.BLOCKS);
+        FilterInit.addItem(BlockInit.DEEPSLATE_ANTHRACITE_COAL_ORE.asItem(), FilterInit.BLOCKS);
+        FilterInit.addItem(BlockInit.ANTHRACITE_COAL_BLOCK.asItem(), FilterInit.BLOCKS);
+        FilterInit.addItem(BlockInit.NETHERIUM_BLOCK.asItem(), FilterInit.BLOCKS);
+        FilterInit.addItem(BlockInit.INDUSTRIAL_NETHERIUM_BLOCK.asItem(), FilterInit.BLOCKS);
+
+        FilterInit.addItem(ItemInit.SPICE_SKYPEPPER, FilterInit.FOOD);
+        FilterInit.addItem(ItemInit.SPICE_GOLDENBLOOM, FilterInit.FOOD);
+        FilterInit.addItem(ItemInit.SPICE_BRIGHTBURST, FilterInit.FOOD);
+        FilterInit.addItem(ItemInit.SPICE_SMOLDERROOT, FilterInit.FOOD);
+        FilterInit.addItem(ItemInit.SPICE_ASHTHORN, FilterInit.FOOD);
 
         FuelRegistry.INSTANCE.add(ItemInit.ANTHRACITE_COAL, 3200);
         FuelRegistry.INSTANCE.add(ItemInit.MULCH, 800);

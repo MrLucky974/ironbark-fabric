@@ -39,6 +39,16 @@ repositories {
         url "https://maven.siphalor.de/"
     }
 
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+
+    maven { url = "https://maven.ziyuesinicization.site/releases/" }
+
     repositories.named("Mojang", MavenArtifactRepository) {
         artifactUrls ArtifactRepositoryContainer.MAVEN_CENTRAL_URL
     }
@@ -52,11 +62,19 @@ dependencies {
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
-    modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
-    modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
+    modCompileOnly "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}"
 
     include(modApi("de.siphalor.tweed4:tweed4-data-$minecraft_major_version:1.2.1+"))
     include(modApi("de.siphalor.tweed4:tweed4-data-hjson-$minecraft_major_version:1.1.1+"))
+
+    modImplementation "maven.modrinth:pommel-held-item-models:${project.pommel_version}"
+
+    modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+    modApi("ziyue.filters:filters-fabric:${project.filters_api_version}+${project.minecraft_version}") {
+        exclude(group: "net.fabricmc")
+    }
 }
 
 configurations.include.transitive = true

@@ -1,0 +1,6 @@
+{
+  "parent": "ironbark:handheld/scythe",
+  "textures": {
+    "layer0": "ironbark:item/handheld/soul_scythe"
+  }
+}

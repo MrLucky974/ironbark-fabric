@@ -44,8 +44,10 @@ public class ItemGroupInit {
                 Optional.ofNullable(CLIENT.world).ifPresent(world -> {
                     RecipeManager recipeManager = world.getRecipeManager();
                     recipeManager.listAllOfType(RecipeInit.TypeInit.TABLET_CRAFTING).stream().map(entry -> {
+                        Ironbark.LOGGER.info("Found recipe: {}", entry.id());
                         ItemStack stack = new ItemStack(ItemInit.ANCIENT_CLAY_TABLET, 1);
-                        stack.set(ComponentInit.RECIPE_REFERENCE_COMPONENT, new RecipeReferenceComponent(entry.id()));
+                        RecipeReferenceComponent component = new RecipeReferenceComponent(entry.id());
+                        stack.set(ComponentInit.RECIPE_REFERENCE_COMPONENT, component);
                         return stack;
                     }).forEach(entries::add);
                 });

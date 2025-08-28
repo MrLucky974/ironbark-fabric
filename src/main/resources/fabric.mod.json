@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "Ironbark",
   "description": "Adds new decoration elements and cool stuff",
-  "authors": [],
+  "authors": [
+    "Luckius_"
+  ],
   "contact": {},
   "license": "MIT",
   "icon": "assets/ironbark/icon.png",
@@ -36,6 +38,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "pommel": ">=1.2.2+1.21.x"
   }
 }

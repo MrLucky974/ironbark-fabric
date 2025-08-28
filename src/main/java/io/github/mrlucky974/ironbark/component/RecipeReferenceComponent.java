@@ -10,6 +10,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public record RecipeReferenceComponent(Identifier recipeId) {
     public static final Codec<RecipeReferenceComponent> CODEC = RecordCodecBuilder.create(instance ->
@@ -31,5 +32,10 @@ public record RecipeReferenceComponent(Identifier recipeId) {
                 .filter(entry -> entry.id().equals(this.recipeId))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public @NotNull String toString() {
+        return this.recipeId.toString();
     }
 }

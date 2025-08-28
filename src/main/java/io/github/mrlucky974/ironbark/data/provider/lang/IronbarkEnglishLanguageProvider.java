@@ -4,6 +4,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.emi.IronbarkEmiPlugin;
 import io.github.mrlucky974.ironbark.init.BlockInit;
+import io.github.mrlucky974.ironbark.init.FilterInit;
 import io.github.mrlucky974.ironbark.init.ItemGroupInit;
 import io.github.mrlucky974.ironbark.init.ItemInit;
 import io.github.mrlucky974.ironbark.item.AncientClayTabletItem;
@@ -17,6 +18,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
+import ziyue.filters.Filter;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,6 +33,11 @@ public class IronbarkEnglishLanguageProvider extends FabricLanguageProvider {
         } else {
             Ironbark.LOGGER.warn("Failed to add translation for text: {}", text.getString());
         }
+    }
+
+    private static void addFilter(@NotNull TranslationBuilder translationBuilder, @NotNull Filter filter, @NotNull String value) {
+        Text text = filter.getMessage();
+        addText(translationBuilder, text, value);
     }
 
     private static void addEmiRecipeCategory(@NotNull TranslationBuilder translationBuilder, @NotNull EmiRecipeCategory category, @NotNull String value) {
@@ -85,11 +92,20 @@ public class IronbarkEnglishLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ItemInit.ULTIMATE_REPAIR_GEM, "Ultimate Repair Gem");
         translationBuilder.add(BlockInit.BANK, "Bank");
         translationBuilder.add(BlockInit.ROSE_GOLD_BLOCK, "Block of Rose Gold");
+        translationBuilder.add(ItemInit.IRON_SCYTHE, "Iron Scythe");
+        translationBuilder.add(ItemInit.SOUL_SCYTHE, "Soul Scythe");
 
         addEmiRecipeCategory(translationBuilder, IronbarkEmiPlugin.MORTAR_RECIPE_CATEGORY, "Mortar");
 
         addText(translationBuilder, ItemGroupInit.MAIN_GROUP_KEY, "Ironbark");
-        addText(translationBuilder, ItemGroupInit.ARTIFACTS_GROUP_KEY, "Ironbark - Artifacts");
+        addText(translationBuilder, ItemGroupInit.ARTIFACTS_GROUP_KEY, "Ironbark | Artifacts");
+
+        addFilter(translationBuilder, FilterInit.MATERIALS, "Materials");
+        addFilter(translationBuilder, FilterInit.BLOCKS, "Blocks");
+        addFilter(translationBuilder, FilterInit.CURRENCY, "Currency");
+        addFilter(translationBuilder, FilterInit.UTILITIES, "Utilities");
+        addFilter(translationBuilder, FilterInit.REPAIR_GEMS, "Repair Gems");
+        addFilter(translationBuilder, FilterInit.FOOD, "Food");
 
         addText(translationBuilder, Ironbark.SPICY_TOOLTIP, "Spicy");
         addText(translationBuilder, AncientClayTabletItem.INVALID_RECIPE_TOOLTIP, "Invalid Recipe");

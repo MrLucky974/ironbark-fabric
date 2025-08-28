@@ -1,0 +1,23 @@
+{
+  "type": "ironbark:tablet_crafting",
+  "key": {
+    "i": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "n": {
+      "item": "minecraft:netherrack"
+    },
+    "s": {
+      "item": "ironbark:iron_scythe"
+    }
+  },
+  "pattern": [
+    "nin",
+    "isi",
+    "nin"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ironbark:soul_scythe"
+  }
+}

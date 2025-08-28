@@ -6,11 +6,12 @@ import io.github.mrlucky974.ironbark.client.gui.screen.BankScreen;
 import io.github.mrlucky974.ironbark.client.gui.screen.CraftingTabletScreen;
 import io.github.mrlucky974.ironbark.client.renderer.BankRenderer;
 import io.github.mrlucky974.ironbark.client.renderer.IronbarkEffectRenderer;
+import io.github.mrlucky974.ironbark.client.renderer.item.ScytheItemRenderer;
 import io.github.mrlucky974.ironbark.config.IronbarkConfig;
+import io.github.mrlucky974.ironbark.init.FilterInit;
 import io.github.mrlucky974.ironbark.init.ItemInit;
 import io.github.mrlucky974.ironbark.init.ScreenHandlerTypeInit;
 import io.github.mrlucky974.ironbark.item.CoinItem;
-import io.github.mrlucky974.ironbark.item.CoinSackItem;
 import io.github.mrlucky974.ironbark.item.CurrencyProvider;
 import io.github.mrlucky974.ironbark.mixin.client.WorldRendererAccessor;
 import io.github.mrlucky974.ironbark.network.BankUpdatePayload;
@@ -20,12 +21,15 @@ import io.github.mrlucky974.ironbark.network.OreChunksPayload;
 import io.github.mrlucky974.ironbark.world.PlayerData;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -51,6 +55,8 @@ public class IronbarkClient implements ClientModInitializer {
         registerScreens();
         registerPayloadGlobalReceivers();
         registerModelPredicateProviders();
+
+        FilterInit.init();
 
         HudRenderCallback.EVENT.register(bankRenderer);
 

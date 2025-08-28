@@ -48,6 +48,15 @@ public class IronbarkRecipeProvider extends FabricRecipeProvider {
                 .input('e', Items.ENDER_EYE)
                 .offerTo(recipeExporter, Ironbark.id("end_star_tablet"));
 
+        TabletCraftingRecipeBuilder.create(ItemInit.SOUL_SCYTHE)
+                .pattern("nin")
+                .pattern("isi")
+                .pattern("nin")
+                .input('s', ItemInit.IRON_SCYTHE)
+                .input('i', Items.NETHERITE_INGOT)
+                .input('n', Items.NETHERRACK)
+                .offerTo(recipeExporter, Ironbark.id("soul_scythe_tablet"));
+
         addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.STEEL_BLOCK, ItemInit.STEEL_INGOT, recipeExporter);
         addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.NETHERIUM_BLOCK, ItemInit.NETHERIUM_INGOT, recipeExporter);
         addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.ROSE_GOLD_BLOCK, ItemInit.ROSE_GOLD_INGOT, recipeExporter);
@@ -61,10 +70,7 @@ public class IronbarkRecipeProvider extends FabricRecipeProvider {
 
     private void addPackingAndUnpackingRecipes(RecipeCategory category, ItemConvertible packedResult, ItemConvertible ingredient,
                                                RecipeExporter exporter) {
-        // Block from ingots (shaped)
         addPackingRecipe(category, packedResult, ingredient, exporter);
-
-        // Ingots from block (shapeless)
         addUnpackingRecipe(category, packedResult, ingredient, exporter);
     }
 

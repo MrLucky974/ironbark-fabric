@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "ironbark:item/iron_scythe"
+  },
+  "overrides": [
+    { "predicate": { "pommel:is_held": 1.0 }, "model": "ironbark:item/handheld/iron_scythe" }
+  ]
+}
