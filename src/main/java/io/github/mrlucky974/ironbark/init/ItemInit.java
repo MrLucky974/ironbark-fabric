@@ -3,7 +3,6 @@ package io.github.mrlucky974.ironbark.init;
 import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.item.*;
 import io.github.mrlucky974.ironbark.list.FoodList;
-import io.github.mrlucky974.ironbark.network.CoinSackComponent;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.effect.StatusEffects;
@@ -34,6 +33,7 @@ public class ItemInit {
     public static final Item NETHERIUM_PLATE = register("netherium_plate", new Item(new Item.Settings()));
     public static final Item ROSE_GOLD_INGOT = register("rose_gold_ingot", new Item(new Item.Settings()));
     public static final Item CHARRED_BONE = register("charred_bone", new Item(new Item.Settings()));
+    public static final Item DIAMOND_FRAGMENT = register("diamond_fragment", new Item(new Item.Settings()));
 
     public static final Item SPICE_ASHTHORN = register("spice_ashthorn",
             new SpiceItem(StatusEffects.WITHER, DEFAULT_SPICE_DURATION,

@@ -58,6 +58,7 @@ public class IronbarkModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ItemInit.NETHERIUM_PLATE, Models.GENERATED);
         itemModelGenerator.register(ItemInit.ROSE_GOLD_INGOT, Models.GENERATED);
         itemModelGenerator.register(ItemInit.CHARRED_BONE, Models.GENERATED);
+        itemModelGenerator.register(ItemInit.DIAMOND_FRAGMENT, Models.GENERATED);
         itemModelGenerator.register(ItemInit.SPICE_ASHTHORN, Models.GENERATED);
         itemModelGenerator.register(ItemInit.SPICE_SMOLDERROOT, Models.GENERATED);
         itemModelGenerator.register(ItemInit.SPICE_BRIGHTBURST, Models.GENERATED);

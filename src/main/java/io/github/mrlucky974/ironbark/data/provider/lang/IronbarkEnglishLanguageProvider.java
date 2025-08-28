@@ -62,6 +62,7 @@ public class IronbarkEnglishLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ItemInit.SPICE_MIX, "Spice Mix");
         translationBuilder.add(ItemInit.ANCIENT_CLAY_TABLET, "Ancient Clay Tablet");
         translationBuilder.add(ItemInit.CHARRED_BONE, "Charred Bone");
+        translationBuilder.add(ItemInit.DIAMOND_FRAGMENT, "Diamond Fragment");
         translationBuilder.add(BlockInit.DEEPSLATE_ANTHRACITE_COAL_ORE, "Deepslate Anthracite Coal Ore");
         translationBuilder.add(BlockInit.ANTHRACITE_COAL_BLOCK, "Block of Anthracite Coal");
         translationBuilder.add(ItemInit.MORTAR, "Mortar");

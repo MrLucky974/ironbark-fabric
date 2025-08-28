@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-27T22:04:38.1849125	Ironbark/Model Definitions
+// 1.21.1	2025-08-28T11:22:00.1452447	Ironbark/Model Definitions
 bdf0976f8166ecf055d99ba76665669761499dfd assets\ironbark\models\item\rose_gold_coin.json
 0a8571f8262ea7e4eebd487a97b24e3c1085d00e assets\ironbark\models\item\iron_coin_2.json
 eb8870b42add09610f0a2fc4481f89fdaf16bb59 assets\ironbark\models\item\coin_sack.json
@@ -6,6 +6,7 @@ abe1f2b45c2ee25ca382323242aa9778df0a5aec assets\ironbark\models\item\industrial_
 f668868e564286dc089f4e0035ebad2300abf224 assets\ironbark\models\item\coin_sack_filled.json
 1aa3228ecd34d116e1abb6be013394fe5956c982 assets\ironbark\models\item\charcoal_block.json
 d5cdff58e26d6fd89ebbb88eaa1aed3bd23c1614 assets\ironbark\models\item\spice_skypepper.json
+077b950a69a857dd69db05690ad2acfb7b3316c5 assets\ironbark\models\item\diamond_fragment.json
 80cf4a34023b3cee00e8204fd74495168e8daa5c assets\ironbark\models\item\netherium_plate.json
 257348585f6b4441cbf18de8433e1424011f6228 assets\ironbark\blockstates\netherium_block.json
 a2221e86b27c4ac22780bf4f0b5ae61316cd8f26 assets\ironbark\models\item\gold_coin_3.json
@@ -49,8 +50,8 @@ d50f6d9c91ac1b06e4857667dc4102547fbbb3df assets\ironbark\blockstates\rose_gold_b
 b9e125760bd634e9270230091ddf7fba2cec87d5 assets\ironbark\models\block\rose_gold_block.json
 74e5b91afbb9dcc56594f631d8da9bfb9549595a assets\ironbark\models\item\rose_gold_coin_2.json
 7d2f0579c4c59a142fa3626ea91d518fff7cab15 assets\ironbark\models\item\deepslate_anthracite_coal_ore.json
-00515e5f4a3e33764a10ce67a847c1daeb3f8471 assets\ironbark\models\item\end_star.json
 360bae56df9ad66b0a665b8fa4646dd4d3b802c4 assets\ironbark\models\item\gold_coin_1.json
+00515e5f4a3e33764a10ce67a847c1daeb3f8471 assets\ironbark\models\item\end_star.json
 6ba0167e2e8fed198b4b482210a18b0782f899c9 assets\ironbark\models\item\bank.json
 49bae5e7afcb87eb13f87897600466ce71bd135b assets\ironbark\models\item\spice_brightburst.json
 b594996d4c9d3ecb9bd6af5f9f7a1dc725f96ad8 assets\ironbark\models\item\rose_gold_coin_3.json
@@ -62,10 +63,10 @@ e2a9349d983d3671a7204cd150eaff23b9a86d2a assets\ironbark\blockstates\industrial_
 0ed31b4ceb33bac96e2f1bf3fe5d6042c6c4bb3b assets\ironbark\models\item\charred_bone.json
 7334529742d7324f9922dcb3fc231eb5f4eb15a8 assets\ironbark\blockstates\bank.json
 f213f7a7a32478b1c833755ac40d5baf0ed695d4 assets\ironbark\models\item\mulch.json
-e19375573318f9287e2bec9c7ea3a9da3095fdc0 assets\ironbark\models\item\bark.json
 6edb2976ba0527598438bce44626c67f2188ba35 assets\ironbark\models\item\spice_ashthorn.json
-363e571e2e94a5e2ef28ad7ca83e350600bc5a87 assets\ironbark\models\item\gold_coin.json
+e19375573318f9287e2bec9c7ea3a9da3095fdc0 assets\ironbark\models\item\bark.json
 b12f77e7ff3c6aa273cb29f37ae0d72b187419de assets\ironbark\models\item\anthracite_coal_block.json
+363e571e2e94a5e2ef28ad7ca83e350600bc5a87 assets\ironbark\models\item\gold_coin.json
 89fb61aebbb0d9df3bdaf5397e4da8d6df9f508e assets\ironbark\models\item\basic_repair_gem.json
 cf6b45bddd9ce884834aac454910e9173d160101 assets\ironbark\models\item\dough.json
 44bb1e3c1afda0f7d3ca6bd89fd4559da87f5763 assets\ironbark\models\item\netherium_ingot.json

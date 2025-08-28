@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-27T22:04:38.1869048	Ironbark/Recipes
+// 1.21.1	2025-08-28T11:22:00.146241	Ironbark/Recipes
 00410aa46629802314a47cce15f38b480838f601 data\ironbark\advancement\recipes\misc\rose_gold_ingot.json
 b51513002b225bf318d9164d674e52beef4b0067 data\ironbark\advancement\recipes\misc\anthracite_coal.json
 88f270cfd1827c5049f2484d15f10d22c155e97a data\ironbark\advancement\recipes\misc\netherium_ingot.json
@@ -8,12 +8,14 @@ a97d8f5d2c81a9fda748ebe8b6a425f0874d6710 data\ironbark\recipe\bread_from_smeltin
 7529024f7bc60bacef6bc317a6486b081d737d32 data\ironbark\advancement\recipes\misc\industrial_netherium_block.json
 5a17972c25a8d610c4c192523c614751582d02d8 data\ironbark\recipe\spicy_food.json
 630302ec64f0caf1468ea6ddb909bb455b5ab8d3 data\ironbark\advancement\recipes\misc\steel_ingot.json
-82639d5ddfc577c2d36015b26d72aa07bb3c84a5 data\ironbark\recipe\rose_gold_ingot.json
 cac5207a009e42b3c717389a65f06b0fb23d707e data\ironbark\recipe\charcoal_block.json
+82639d5ddfc577c2d36015b26d72aa07bb3c84a5 data\ironbark\recipe\rose_gold_ingot.json
 3e56d0748314aab3e6ea9af9d3f4509f08b06c22 data\ironbark\recipe\bone_to_bone_meal.json
+f150593c2d4d656b7b8dbf27f88f9c409e3fbafb data\ironbark\advancement\recipes\misc\diamond_fragment.json
 d5f9b1c904ed9cad4b0675259470953e8726fce8 data\ironbark\recipe\anthracite_coal.json
 8be24681913d9fe5f8616b0117bc3e678155973c data\ironbark\recipe\industrial_netherium_block.json
 d7d4df5ed67b4d55014564677e67bb7f0de8e39e data\ironbark\advancement\recipes\misc\charcoal.json
+4ed69fe7f5e54c04c80fbfd24a631ea2bc2149fd data\ironbark\recipe\diamond_fragment.json
 9877ab8ad1631b5cc867d37dbc7791803e94a560 data\ironbark\recipe\anthracite_coal_block.json
 295a9a381d044388e8825362f8041be56f844007 data\ironbark\advancement\recipes\food\bread_from_smelting_dough.json
 1ea608860a621adc8893c33719cd569bed60e515 data\ironbark\recipe\steel_ingot.json

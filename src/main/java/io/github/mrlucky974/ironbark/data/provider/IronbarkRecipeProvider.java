@@ -55,6 +55,8 @@ public class IronbarkRecipeProvider extends FabricRecipeProvider {
         addPackingAndUnpackingRecipes(RecipeCategory.MISC, BlockInit.CHARCOAL_BLOCK, Items.CHARCOAL, recipeExporter);
 
         addPackingRecipe(RecipeCategory.MISC, BlockInit.INDUSTRIAL_NETHERIUM_BLOCK, ItemInit.NETHERIUM_PLATE, recipeExporter);
+
+        addUnpackingRecipe(RecipeCategory.MISC, Items.DIAMOND, ItemInit.DIAMOND_FRAGMENT, recipeExporter);
     }
 
     private void addPackingAndUnpackingRecipes(RecipeCategory category, ItemConvertible packedResult, ItemConvertible ingredient,
