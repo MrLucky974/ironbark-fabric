@@ -1,4 +1,4 @@
-package io.github.mrlucky974.ironbark.client.renderer;
+package io.github.mrlucky974.ironbark.client.renderer.hud;
 
 import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.client.IronbarkClient;
@@ -9,7 +9,7 @@ import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class BankRenderer implements HudRenderCallback {
+public class BankHudRenderer implements HudRenderCallback {
     private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
 
     private static final Identifier COPPER_COIN = Ironbark.id("textures/item/copper_coin.png");
@@ -28,7 +28,7 @@ public class BankRenderer implements HudRenderCallback {
         }
         matrices.pop();
 
-        drawContext.drawText(CLIENT.textRenderer, formatCoins(IronbarkClient.playerData.coins), x + 18, y + 2, 0xFFFFFFFF, true);
+        drawContext.drawText(CLIENT.textRenderer, formatCoins(IronbarkClient.PLAYER_DATA.coins), x + 18, y + 2, 0xFFFFFFFF, true);
     }
 
     private static String formatCoins(long coins) {

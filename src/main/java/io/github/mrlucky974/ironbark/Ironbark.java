@@ -3,6 +3,7 @@ package io.github.mrlucky974.ironbark;
 import io.github.mrlucky974.ironbark.command.CoinsCommand;
 import io.github.mrlucky974.ironbark.component.SpiceContainerComponent;
 import io.github.mrlucky974.ironbark.config.IronbarkConfig;
+import io.github.mrlucky974.ironbark.event.BlockStrippedCallback;
 import io.github.mrlucky974.ironbark.event.FoodEatenCallback;
 import io.github.mrlucky974.ironbark.init.*;
 import io.github.mrlucky974.ironbark.item.SpiceIngredient;
@@ -24,9 +25,12 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -119,6 +123,17 @@ public class Ironbark implements ModInitializer {
                 }
             }
         }));
+
+        BlockStrippedCallback.EVENT.register((world, pos, player, state) -> {
+            if (!world.isClient) {
+                if (state.isIn(BlockTags.LOGS)) {
+                    // TODO : Make a loot table
+                    world.spawnEntity(new ItemEntity(world,
+                            pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                            new ItemStack(ItemInit.BARK, 1)));
+                }
+            }
+        });
     }
 
     private static void registerPayloads() {

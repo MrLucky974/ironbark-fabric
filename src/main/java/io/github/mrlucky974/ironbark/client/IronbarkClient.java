@@ -4,10 +4,11 @@ import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.IronbarkEffectManager;
 import io.github.mrlucky974.ironbark.client.gui.screen.BankScreen;
 import io.github.mrlucky974.ironbark.client.gui.screen.CraftingTabletScreen;
-import io.github.mrlucky974.ironbark.client.renderer.BankRenderer;
+import io.github.mrlucky974.ironbark.client.renderer.hud.BankHudRenderer;
 import io.github.mrlucky974.ironbark.client.renderer.IronbarkEffectRenderer;
-import io.github.mrlucky974.ironbark.client.renderer.item.ScytheItemRenderer;
+import io.github.mrlucky974.ironbark.client.renderer.hud.IronGutsHudRenderer;
 import io.github.mrlucky974.ironbark.config.IronbarkConfig;
+import io.github.mrlucky974.ironbark.event.HudRenderBeforeChatCallback;
 import io.github.mrlucky974.ironbark.init.FilterInit;
 import io.github.mrlucky974.ironbark.init.ItemInit;
 import io.github.mrlucky974.ironbark.init.ScreenHandlerTypeInit;
@@ -21,15 +22,12 @@ import io.github.mrlucky974.ironbark.network.OreChunksPayload;
 import io.github.mrlucky974.ironbark.world.PlayerData;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -41,9 +39,11 @@ import java.util.Optional;
 public class IronbarkClient implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Ironbark/Client");
 
-    public static PlayerData playerData = new PlayerData();
-    public static final IronbarkEffectRenderer effectRenderer = new IronbarkEffectRenderer();
-    public static final BankRenderer bankRenderer = new BankRenderer();
+    public static PlayerData PLAYER_DATA = new PlayerData();
+
+    public static final IronbarkEffectRenderer BLOCK_OUTLINE_EFFECT_RENDERER = new IronbarkEffectRenderer();
+    public static final BankHudRenderer BANK_HUD_RENDERER = new BankHudRenderer();
+    public static final IronGutsHudRenderer IRON_GUTS_HUD_RENDERER = new IronGutsHudRenderer();
 
     @Override
     public void onInitializeClient() {
@@ -58,7 +58,8 @@ public class IronbarkClient implements ClientModInitializer {
 
         FilterInit.init();
 
-        HudRenderCallback.EVENT.register(bankRenderer);
+        HudRenderCallback.EVENT.register(BANK_HUD_RENDERER);
+        HudRenderBeforeChatCallback.EVENT.register(IRON_GUTS_HUD_RENDERER);
 
         WorldRenderEvents.AFTER_ENTITIES.register(IronbarkClient::renderOutlineEffect);
     }
@@ -66,8 +67,8 @@ public class IronbarkClient implements ClientModInitializer {
     private static void renderOutlineEffect(WorldRenderContext context) {
         try {
             WorldRendererAccessor worldRenderer = (WorldRendererAccessor) context.worldRenderer();
-            if (effectRenderer.isActive()) {
-                effectRenderer.render(
+            if (BLOCK_OUTLINE_EFFECT_RENDERER.isActive()) {
+                BLOCK_OUTLINE_EFFECT_RENDERER.render(
                         Objects.requireNonNull(context.matrixStack()),
                         context.camera(),
                         worldRenderer.getBufferBuilders().getOutlineVertexConsumers()
@@ -102,7 +103,7 @@ public class IronbarkClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(OreChunksPayload.ID, (payload, context) -> {
             LOGGER.info("Received OreChunksPayload: overwrite={}, remove={}, add={}, bottomSectionCoord={}",
                     payload.overwrite(), payload.remove().size(), payload.add().size(), payload.bottomSectionCoord());
-            IronbarkEffectManager.readPayload(effectRenderer, payload);
+            IronbarkEffectManager.readPayload(BLOCK_OUTLINE_EFFECT_RENDERER, payload);
         });
 
         ClientPlayNetworking.registerGlobalReceiver(ConfigPayload.ID, (payload, context) -> {
@@ -112,11 +113,11 @@ public class IronbarkClient implements ClientModInitializer {
         });
 
         ClientPlayNetworking.registerGlobalReceiver(InitialSyncPayload.ID, (payload, context) -> {
-            playerData.coins = payload.coins();
+            PLAYER_DATA.coins = payload.coins();
         });
 
         ClientPlayNetworking.registerGlobalReceiver(BankUpdatePayload.ID, (payload, context) -> {
-            playerData.coins = payload.coins();
+            PLAYER_DATA.coins = payload.coins();
         });
     }
 

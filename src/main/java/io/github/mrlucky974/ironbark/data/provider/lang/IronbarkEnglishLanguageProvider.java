@@ -11,6 +11,8 @@ import io.github.mrlucky974.ironbark.list.TagList;
 import io.github.mrlucky974.ironbark.spice.Spice;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.item.PotionItem;
+import net.minecraft.potion.Potion;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
@@ -96,6 +98,9 @@ public class IronbarkEnglishLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(BlockInit.ROSE_GOLD_BLOCK, "Block of Rose Gold");
         translationBuilder.add(ItemInit.IRON_SCYTHE, "Iron Scythe");
         translationBuilder.add(ItemInit.SOUL_SCYTHE, "Soul Scythe");
+
+        translationBuilder.add(StatusEffectInit.SPELUNKER.value(), "Spelunker");
+        translationBuilder.add(StatusEffectInit.IRON_GUTS.value(), "Iron Guts");
 
         addEmiRecipeCategory(translationBuilder, IronbarkEmiPlugin.MORTAR_RECIPE_CATEGORY, "Mortar");
 

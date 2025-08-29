@@ -85,7 +85,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
             // handle new and removed chunk sections
             if (world.isClient()) {
-                IronbarkClient.effectRenderer.updateChunks(world, remove, add);
+                IronbarkClient.BLOCK_OUTLINE_EFFECT_RENDERER.updateChunks(world, remove, add);
             } else if (IronbarkConfig.serverValidating) {
                 OreChunksPayload payload = new OreChunksPayload(true, remove, add, world.getBottomSectionCoord());
                 ServerPlayNetworking.send((ServerPlayerEntity) (Object) this, payload);

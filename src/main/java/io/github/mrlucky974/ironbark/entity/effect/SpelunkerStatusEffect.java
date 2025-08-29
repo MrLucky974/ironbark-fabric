@@ -7,4 +7,9 @@ public class SpelunkerStatusEffect extends StatusEffect {
     public SpelunkerStatusEffect() {
         super(StatusEffectCategory.BENEFICIAL, 0xffe32e);
     }
+
+    @Override
+    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+        return true;
+    }
 }

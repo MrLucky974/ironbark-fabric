@@ -77,7 +77,7 @@ public abstract class WorldMixin implements IWorld {
     private void spelunker$UpdateBlockClient(Vec3i chunkPos, BlockPos pos, BlockState newBlock) {
         MinecraftClient client = MinecraftClient.getInstance();
         if ((!IronbarkConfig.serverValidating || client.isInSingleplayer()) && client.player != null && client.player.hasStatusEffect(StatusEffectInit.SPELUNKER)) {
-            ChunkOres chunk = IronbarkClient.effectRenderer.get(chunkPos);
+            ChunkOres chunk = IronbarkClient.BLOCK_OUTLINE_EFFECT_RENDERER.get(chunkPos);
             if (chunk != null)
                 chunk.processConfig(pos, IronbarkConfig.blockConfigs.get(newBlock.getBlock()), false);
         }

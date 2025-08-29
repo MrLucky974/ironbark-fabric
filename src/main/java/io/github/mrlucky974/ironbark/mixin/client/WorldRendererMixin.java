@@ -14,6 +14,6 @@ public abstract class WorldRendererMixin {
             ordinal = 3
     )
     private boolean ironbark$modify(boolean value) {
-        return value || IronbarkClient.effectRenderer.isActive();
+        return value || IronbarkClient.BLOCK_OUTLINE_EFFECT_RENDERER.isActive();
     }
 }

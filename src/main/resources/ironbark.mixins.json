@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractCookingRecipeMixin",
+    "AxeItemMixin",
     "ItemMixin",
     "PlayerEntityMixin",
     "WorldMixin",
@@ -17,6 +18,7 @@
   "client": [
     "client.ClientPlayerEntityMixin",
     "client.ClientWorldMixin",
+    "client.InGameHudMixin",
     "client.WorldRendererAccessor",
     "client.WorldRendererMixin"
   ],

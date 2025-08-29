@@ -20,7 +20,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInject(CallbackInfo ci) {
-        IronbarkEffectRenderer renderer = IronbarkClient.effectRenderer;
+        IronbarkEffectRenderer renderer = IronbarkClient.BLOCK_OUTLINE_EFFECT_RENDERER;
         if (renderer.setActive(hasStatusEffect(StatusEffectInit.SPELUNKER)))
             renderer.clear();
     }
