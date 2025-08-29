@@ -1,9 +1,10 @@
 package io.github.mrlucky974.ironbark.recipe;
 
-import io.github.mrlucky974.ironbark.component.SpiceEffectsComponent;
+import io.github.mrlucky974.ironbark.component.SpiceContainerComponent;
 import io.github.mrlucky974.ironbark.init.ComponentInit;
 import io.github.mrlucky974.ironbark.item.SpiceIngredient;
 import io.github.mrlucky974.ironbark.list.TagList;
+import io.github.mrlucky974.ironbark.spice.Spice;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
@@ -47,7 +48,7 @@ public class SpicyFoodRecipe extends SpecialCraftingRecipe {
     public static boolean isValidFood(ItemStack itemStack) {
         boolean isEdible = isEdible(itemStack);
         boolean isSpice = SpiceIngredient.of(itemStack.getItem()) != null;
-        boolean hasSpice = itemStack.contains(ComponentInit.SPICE_EFFECTS_COMPONENT);
+        boolean hasSpice = itemStack.contains(ComponentInit.SPICES);
         boolean isBlacklisted = itemStack.isIn(TagList.Items.SPICY_ITEM_BLACKLIST);
 
         return isEdible && !hasSpice && !isSpice && !isBlacklisted;
@@ -61,7 +62,7 @@ public class SpicyFoodRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = null;
 
-        List<SpiceEffectsComponent.SpiceEffect> effects = new ArrayList<>();
+        List<Spice> totalSpices = new ArrayList<>();
         for (int i = 0; i < input.getSize(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
@@ -71,13 +72,13 @@ public class SpicyFoodRecipe extends SpecialCraftingRecipe {
 
                 SpiceIngredient ingredient = SpiceIngredient.of(itemStack2.getItem());
                 if (ingredient != null) {
-                    SpiceEffectsComponent spiceEffects = ingredient.getSpiceEffect(itemStack2);
-                    effects.addAll(spiceEffects.effects());
+                    List<Spice> spices = ingredient.getSpices(itemStack2);
+                    totalSpices.addAll(spices);
                 }
             }
         }
 
-        Objects.requireNonNull(itemStack).set(ComponentInit.SPICE_EFFECTS_COMPONENT, new SpiceEffectsComponent(effects));
+        Objects.requireNonNull(itemStack).set(ComponentInit.SPICES, new SpiceContainerComponent(totalSpices));
         return itemStack;
     }
 

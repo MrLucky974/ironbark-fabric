@@ -1,9 +1,10 @@
 package io.github.mrlucky974.ironbark.recipe;
 
-import io.github.mrlucky974.ironbark.component.SpiceEffectsComponent;
+import io.github.mrlucky974.ironbark.component.SpiceContainerComponent;
 import io.github.mrlucky974.ironbark.init.ComponentInit;
 import io.github.mrlucky974.ironbark.init.ItemInit;
 import io.github.mrlucky974.ironbark.item.SpiceIngredient;
+import io.github.mrlucky974.ironbark.spice.Spice;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
@@ -46,22 +47,22 @@ public class SpiceMixRecipe extends SpecialCraftingRecipe {
 
     @Override
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
-        List<SpiceEffectsComponent.SpiceEffect> effects = new ArrayList<>();
+        List<Spice> totalSpices = new ArrayList<>();
 
         for (int i = 0; i < input.getSize(); ++i) {
             ItemStack itemStack = input.getStackInSlot(i);
             if (!itemStack.isEmpty() && itemStack.getItem() != Items.BUNDLE) {
                 SpiceIngredient ingredient = SpiceIngredient.of(itemStack.getItem());
                 if (ingredient != null) {
-                    SpiceEffectsComponent spiceEffects = ingredient.getSpiceEffect(itemStack);
-                    effects.addAll(spiceEffects.effects());
+                    List<Spice> spices = ingredient.getSpices(itemStack);
+                    totalSpices.addAll(spices);
                 }
             }
         }
 
-        SpiceEffectsComponent combinedEffects = new SpiceEffectsComponent(effects);
+        SpiceContainerComponent combinedEffects = new SpiceContainerComponent(totalSpices);
         ItemStack result = new ItemStack(ItemInit.SPICE_MIX, 1);
-        result.set(ComponentInit.SPICE_EFFECTS_COMPONENT, combinedEffects);
+        result.set(ComponentInit.SPICES, combinedEffects);
 
         return result;
     }

@@ -107,7 +107,7 @@ public class AncientClayTabletItem extends Item implements ExtendedScreenHandler
     }
 
     public static Optional<RecipeEntry<TabletCraftingRecipe>> getRecipeEntry(World world, ItemStack stack) {
-        return Optional.ofNullable(stack.get(ComponentInit.RECIPE_REFERENCE_COMPONENT))
+        return Optional.ofNullable(stack.get(ComponentInit.RECIPE_REFERENCE))
                 .map(component -> component.getRecipeEntry(RecipeInit.TypeInit.TABLET_CRAFTING, world));
     }
 
@@ -125,7 +125,7 @@ public class AncientClayTabletItem extends Item implements ExtendedScreenHandler
         }
 
         if (type.isAdvanced()) {
-            RecipeReferenceComponent component = stack.getOrDefault(ComponentInit.RECIPE_REFERENCE_COMPONENT, null);
+            RecipeReferenceComponent component = stack.getOrDefault(ComponentInit.RECIPE_REFERENCE, null);
             if (component != null) {
                 tooltip.add(Text.literal("Recipe: %s".formatted(component.toString())).formatted(Formatting.DARK_GRAY));
             } else {

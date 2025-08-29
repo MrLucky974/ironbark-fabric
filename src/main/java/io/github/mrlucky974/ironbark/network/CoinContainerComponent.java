@@ -6,26 +6,26 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 
-public class CoinSackComponent
+public class CoinContainerComponent
 {
-    public static final Codec<CoinSackComponent> CODEC = RecordCodecBuilder.create(instance ->
-            instance.group(Codec.INT.fieldOf("amount").forGetter(CoinSackComponent::getAmount))
-            .apply(instance, CoinSackComponent::new));
+    public static final Codec<CoinContainerComponent> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(Codec.INT.fieldOf("amount").forGetter(CoinContainerComponent::getAmount))
+            .apply(instance, CoinContainerComponent::new));
 
-    public static final PacketCodec<RegistryByteBuf, CoinSackComponent> PACKET_CODEC =
+    public static final PacketCodec<RegistryByteBuf, CoinContainerComponent> PACKET_CODEC =
             PacketCodec.tuple(
-                    PacketCodecs.INTEGER, CoinSackComponent::getAmount,
-                    CoinSackComponent::new
+                    PacketCodecs.INTEGER, CoinContainerComponent::getAmount,
+                    CoinContainerComponent::new
             );
 
     private int amount;
 
-    private CoinSackComponent(int amount) {
+    private CoinContainerComponent(int amount) {
         this.amount = amount;
     }
 
-    public static CoinSackComponent create(int amount) {
-        return new CoinSackComponent(amount);
+    public static CoinContainerComponent create(int amount) {
+        return new CoinContainerComponent(amount);
     }
 
     public int getAmount() {

@@ -47,7 +47,7 @@ public class ItemGroupInit {
                         Ironbark.LOGGER.info("Found recipe: {}", entry.id());
                         ItemStack stack = new ItemStack(ItemInit.ANCIENT_CLAY_TABLET, 1);
                         RecipeReferenceComponent component = new RecipeReferenceComponent(entry.id());
-                        stack.set(ComponentInit.RECIPE_REFERENCE_COMPONENT, component);
+                        stack.set(ComponentInit.RECIPE_REFERENCE, component);
                         return stack;
                     }).forEach(entries::add);
                 });

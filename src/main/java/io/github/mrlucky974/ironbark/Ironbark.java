@@ -1,16 +1,19 @@
 package io.github.mrlucky974.ironbark;
 
 import io.github.mrlucky974.ironbark.command.CoinsCommand;
-import io.github.mrlucky974.ironbark.component.SpiceEffectsComponent;
+import io.github.mrlucky974.ironbark.component.SpiceContainerComponent;
 import io.github.mrlucky974.ironbark.config.IronbarkConfig;
 import io.github.mrlucky974.ironbark.event.FoodEatenCallback;
 import io.github.mrlucky974.ironbark.init.*;
 import io.github.mrlucky974.ironbark.item.SpiceIngredient;
+import io.github.mrlucky974.ironbark.list.RegistryList;
 import io.github.mrlucky974.ironbark.network.BankUpdatePayload;
 import io.github.mrlucky974.ironbark.network.ConfigPayload;
 import io.github.mrlucky974.ironbark.network.InitialSyncPayload;
 import io.github.mrlucky974.ironbark.network.OreChunksPayload;
 import io.github.mrlucky974.ironbark.recipe.SpicyFoodRecipe;
+import io.github.mrlucky974.ironbark.spice.Spice;
+import io.github.mrlucky974.ironbark.spice.SpiceEffect;
 import io.github.mrlucky974.ironbark.util.StatusEffectMerger;
 import io.github.mrlucky974.ironbark.world.IronbarkPersistentState;
 import io.github.mrlucky974.ironbark.world.PlayerData;
@@ -21,8 +24,9 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -31,7 +35,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Ironbark implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Ironbark");
@@ -54,6 +60,7 @@ public class Ironbark implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTED.register(server -> IronbarkConfig.initBlockHighlightConfig());
 
         registerPayloads();
+        SpiceInit.init();
         ComponentInit.init();
         BlockInit.init();
         BlockEntityInit.init();
@@ -77,32 +84,36 @@ public class Ironbark implements ModInitializer {
 
         FoodEatenCallback.EVENT.register(((stack, world, user) -> {
             if (SpicyFoodRecipe.isEdible(stack) && SpiceIngredient.of(stack.getItem()) == null) {
-                SpiceEffectsComponent spiceEffectsComponent = stack.get(ComponentInit.SPICE_EFFECTS_COMPONENT);
-                if (spiceEffectsComponent != null) {
-                    List<StatusEffectInstance> statusEffectInstances = new ArrayList<>();
-                    for (SpiceEffectsComponent.SpiceEffect effect : spiceEffectsComponent.effects()) {
-                        statusEffectInstances.add(effect.createStatusEffectInstance());
-                    }
-
-                    List<StatusEffectInstance> mergedStatusEffectInstances = StatusEffectMerger.mergeEffects(statusEffectInstances, StatusEffectMerger.DurationMergeStrategy.COMBINE_DURATION);
-                    mergedStatusEffectInstances.forEach(user::addStatusEffect);
+                SpiceContainerComponent spiceContainerComponent = stack.get(ComponentInit.SPICES);
+                if (spiceContainerComponent != null) {
+                    spiceContainerComponent.apply(user);
                 }
             }
         }));
 
-        ItemTooltipCallback.EVENT.register(((stack, tooltipContext, tooltipType, list) ->  {
+        ItemTooltipCallback.EVENT.register(((stack, tooltipContext, tooltipType, tooltip) ->  {
             if (SpicyFoodRecipe.isEdible(stack) && SpiceIngredient.of(stack.getItem()) == null) {
-                SpiceEffectsComponent spiceEffectsComponent = stack.get(ComponentInit.SPICE_EFFECTS_COMPONENT);
-                if (spiceEffectsComponent != null) {
-                    list.add(SPICY_TOOLTIP);
+                SpiceContainerComponent spiceContainerComponent = stack.get(ComponentInit.SPICES);
+                if (spiceContainerComponent != null) {
+                    tooltip.add(SPICY_TOOLTIP);
 
-                    if (tooltipType.isCreative()) {
-                        List<StatusEffectInstance> effects = new ArrayList<>();
-                        for (SpiceEffectsComponent.SpiceEffect spiceEffect : spiceEffectsComponent.effects()) {
-                            effects.add(spiceEffect.createStatusEffectInstance());
+                    if (tooltipType.isAdvanced()) {
+                        List<Spice> spices = spiceContainerComponent.spices();
+
+                        Map<Spice, Integer> spiceCounts = new HashMap<>();
+                        for (Spice spice : spices) {
+                            spiceCounts.merge(spice, 1, Integer::sum);
                         }
 
-                        PotionContentsComponent.buildTooltip(StatusEffectMerger.mergeEffects(effects, StatusEffectMerger.DurationMergeStrategy.COMBINE_DURATION), list::add, 1.0F, tooltipContext.getUpdateTickRate());
+                        for (Map.Entry<Spice, Integer> entry : spiceCounts.entrySet()) {
+                            Spice spice = entry.getKey();
+                            int count = entry.getValue();
+
+                            tooltip.add(Text.literal("")
+                                    .append(spice.getName())
+                                    .append(" x" + count)
+                            );
+                        }
                     }
                 }
             }

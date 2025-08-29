@@ -33,25 +33,11 @@ public class ItemInit {
     public static final Item CHARRED_BONE = register("charred_bone", new Item(new Item.Settings()));
     public static final Item DIAMOND_FRAGMENT = register("diamond_fragment", new Item(new Item.Settings()));
 
-    public static final Item SPICE_ASHTHORN = register("spice_ashthorn",
-            new SpiceItem(StatusEffects.WITHER, DEFAULT_SPICE_DURATION,
-                    new Item.Settings().food(FoodList.SPICE_FOOD_COMPONENT)));
-
-    public static final Item SPICE_SMOLDERROOT = register("spice_smolderroot",
-            new SpiceItem(StatusEffects.FIRE_RESISTANCE, DEFAULT_SPICE_DURATION,
-                    new Item.Settings().food(FoodList.SPICE_FOOD_COMPONENT)));
-
-    public static final Item SPICE_BRIGHTBURST = register("spice_brightburst",
-            new SpiceItem(StatusEffects.HASTE, DEFAULT_SPICE_DURATION,
-                    new Item.Settings().food(FoodList.SPICE_FOOD_COMPONENT)));
-
-    public static final Item SPICE_GOLDENBLOOM = register("spice_goldenbloom",
-            new SpiceItem(StatusEffects.REGENERATION, DEFAULT_SPICE_DURATION,
-                    new Item.Settings().food(FoodList.SPICE_FOOD_COMPONENT)));
-
-    public static final Item SPICE_SKYPEPPER = register("spice_skypepper",
-            new SpiceItem(StatusEffects.SPEED, DEFAULT_SPICE_DURATION,
-                    new Item.Settings().food(FoodList.SPICE_FOOD_COMPONENT)));
+    public static final Item SPICE_ASHTHORN = register("spice_ashthorn", new SpiceItem(SpiceInit.ASHTHORN));
+    public static final Item SPICE_SMOLDERROOT = register("spice_smolderroot", new SpiceItem(SpiceInit.SMOLDERROOT));
+    public static final Item SPICE_BRIGHTBURST = register("spice_brightburst", new SpiceItem(SpiceInit.BRIGHTBURST));
+    public static final Item SPICE_GOLDENBLOOM = register("spice_goldenbloom", new SpiceItem(SpiceInit.GOLDENBLOOM));
+    public static final Item SPICE_SKYPEPPER = register("spice_skypepper", new SpiceItem(SpiceInit.SKYPEPPER));
 
     public static final Item SPICE_MIX = register("spice_mix",
             new SpiceMixItem(new Item.Settings().maxCount(1).recipeRemainder(Items.BUNDLE)));
@@ -118,9 +104,18 @@ public class ItemInit {
 
     public static void init() {
         Ironbark.LOGGER.info("Registering items...");
+
+        blacklistItems();
+        registerFilterItems();
+        registerFuelItems();
+    }
+
+    private static void blacklistItems() {
         ItemInit.BLACKLIST.add(ItemInit.SPICE_MIX);
         ItemInit.BLACKLIST.add(ItemInit.ANCIENT_CLAY_TABLET);
+    }
 
+    private static void registerFilterItems() {
         FilterInit.addItem(ItemInit.ANTHRACITE_COAL, FilterInit.MATERIALS);
         FilterInit.addItem(ItemInit.STEEL_INGOT, FilterInit.MATERIALS);
         FilterInit.addItem(ItemInit.ROSE_GOLD_INGOT, FilterInit.MATERIALS);
@@ -166,7 +161,9 @@ public class ItemInit {
         FilterInit.addItem(ItemInit.SPICE_BRIGHTBURST, FilterInit.FOOD);
         FilterInit.addItem(ItemInit.SPICE_SMOLDERROOT, FilterInit.FOOD);
         FilterInit.addItem(ItemInit.SPICE_ASHTHORN, FilterInit.FOOD);
+    }
 
+    private static void registerFuelItems() {
         FuelRegistry.INSTANCE.add(ItemInit.ANTHRACITE_COAL, 3200);
         FuelRegistry.INSTANCE.add(ItemInit.MULCH, 800);
         FuelRegistry.INSTANCE.add(BlockInit.ANTHRACITE_COAL_BLOCK.asItem(), 32000);

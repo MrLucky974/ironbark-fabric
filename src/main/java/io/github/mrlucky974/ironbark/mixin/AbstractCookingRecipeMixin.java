@@ -1,6 +1,6 @@
 package io.github.mrlucky974.ironbark.mixin;
 
-import io.github.mrlucky974.ironbark.component.SpiceEffectsComponent;
+import io.github.mrlucky974.ironbark.component.SpiceContainerComponent;
 import io.github.mrlucky974.ironbark.init.ComponentInit;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.AbstractCookingRecipe;
@@ -22,10 +22,10 @@ public abstract class AbstractCookingRecipeMixin {
     @Inject(method = "craft*", at = @At("RETURN"), cancellable = true)
     private void ironbark$onCraft(SingleStackRecipeInput singleStackRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup, CallbackInfoReturnable<ItemStack> ci) {
         ItemStack input = singleStackRecipeInput.item();
-        SpiceEffectsComponent spiceEffectsComponent = input.get(ComponentInit.SPICE_EFFECTS_COMPONENT);
-        if (spiceEffectsComponent != null) {
+        SpiceContainerComponent spiceContainerComponent = input.get(ComponentInit.SPICES);
+        if (spiceContainerComponent != null) {
             ItemStack result = this.result.copy();
-            result.set(ComponentInit.SPICE_EFFECTS_COMPONENT, spiceEffectsComponent);
+            result.set(ComponentInit.SPICES, spiceContainerComponent);
             ci.setReturnValue(result);
         }
     }

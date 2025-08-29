@@ -1,10 +1,9 @@
 package io.github.mrlucky974.ironbark.item;
 
-import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.init.ComponentInit;
 import io.github.mrlucky974.ironbark.init.ItemInit;
 import io.github.mrlucky974.ironbark.network.BankUpdatePayload;
-import io.github.mrlucky974.ironbark.network.CoinSackComponent;
+import io.github.mrlucky974.ironbark.network.CoinContainerComponent;
 import io.github.mrlucky974.ironbark.world.IronbarkPersistentState;
 import io.github.mrlucky974.ironbark.world.PlayerData;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -47,7 +46,7 @@ public class CoinSackItem extends Item implements CurrencyProvider {
         if (world == null || world.isClient) return false;
         if (clickType != ClickType.RIGHT) return false;
 
-        CoinSackComponent component = stack.getOrDefault(ComponentInit.COIN_SACK_COMPONENT, CoinSackComponent.create(0));
+        CoinContainerComponent component = stack.getOrDefault(ComponentInit.COINS, CoinContainerComponent.create(0));
         int totalCoins = component.getAmount();
 
         if (otherStack.isEmpty()) {
@@ -67,15 +66,15 @@ public class CoinSackItem extends Item implements CurrencyProvider {
             }
 
             // Update remaining coins in the sack
-            component = CoinSackComponent.create(totalCoins);
-            stack.set(ComponentInit.COIN_SACK_COMPONENT, component);
+            component = CoinContainerComponent.create(totalCoins);
+            stack.set(ComponentInit.COINS, component);
         } else {
             // Deposit coins into the sack
             if (!(otherStack.getItem() instanceof CoinItem coinItem)) return false;
 
             int amount = coinItem.getAmount(otherStack);
             component.add(amount);
-            stack.set(ComponentInit.COIN_SACK_COMPONENT, component);
+            stack.set(ComponentInit.COINS, component);
             otherStack.decrement(otherStack.getCount());
         }
 
@@ -113,7 +112,7 @@ public class CoinSackItem extends Item implements CurrencyProvider {
 
     @Override
     public int getAmount(ItemStack stack) {
-        CoinSackComponent component = stack.getOrDefault(ComponentInit.COIN_SACK_COMPONENT, CoinSackComponent.create(0));
+        CoinContainerComponent component = stack.getOrDefault(ComponentInit.COINS, CoinContainerComponent.create(0));
         return component.getAmount();
     }
 }

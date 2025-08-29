@@ -1,70 +1,58 @@
 package io.github.mrlucky974.ironbark.item;
 
-import io.github.mrlucky974.ironbark.component.SpiceEffectsComponent;
+import io.github.mrlucky974.ironbark.Ironbark;
+import io.github.mrlucky974.ironbark.component.SpiceContainerComponent;
+import io.github.mrlucky974.ironbark.init.ComponentInit;
+import io.github.mrlucky974.ironbark.list.FoodList;
+import io.github.mrlucky974.ironbark.recipe.SpicyFoodRecipe;
+import io.github.mrlucky974.ironbark.spice.Spice;
+import io.github.mrlucky974.ironbark.spice.SpiceEffect;
 import io.github.mrlucky974.ironbark.util.StatusEffectMerger;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class SpiceItem extends Item implements SpiceIngredient {
-    private final SpiceEffectsComponent spiceEffects;
+    private final SpiceContainerComponent spiceContainer;
 
-    public SpiceItem(RegistryEntry<StatusEffect> effect, float effectLengthInSeconds, Settings settings) {
-        this(createSpiceEffectList(effect, effectLengthInSeconds), settings);
+    public SpiceItem(Spice spice) {
+        super(new Item.Settings().food(FoodList.SPICE_FOOD_COMPONENT));
+        this.spiceContainer = createContainer(spice);
     }
 
-    public SpiceItem(SpiceEffectsComponent spiceEffectsComponent, Settings settings) {
-        super(settings);
-        this.spiceEffects = spiceEffectsComponent;
-    }
-
-    protected static SpiceEffectsComponent createSpiceEffectList(RegistryEntry<StatusEffect> effect, float effectLengthInSeconds) {
-        return new SpiceEffectsComponent(List.of(new SpiceEffectsComponent.SpiceEffect(effect, MathHelper.floor(effectLengthInSeconds * 20.0F))));
+    protected static SpiceContainerComponent createContainer(Spice... spices) {
+        return new SpiceContainerComponent(Arrays.stream(spices).toList());
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         super.appendTooltip(stack, context, tooltip, type);
 
+        SpiceContainerComponent spices = new SpiceContainerComponent(this.getSpices(stack));
         if (type.isCreative()) {
-            List<StatusEffectInstance> list = new ArrayList<>();
-            SpiceEffectsComponent spiceEffectsComponent = this.getSpiceEffect(stack);
-
-            for (SpiceEffectsComponent.SpiceEffect spiceEffect : spiceEffectsComponent.effects()) {
-                list.add(spiceEffect.createStatusEffectInstance());
-            }
-
-            Objects.requireNonNull(tooltip);
-            PotionContentsComponent.buildTooltip(StatusEffectMerger.mergeEffects(list, StatusEffectMerger.DurationMergeStrategy.COMBINE_DURATION), tooltip::add, 1.0F, context.getUpdateTickRate());
+            PotionContentsComponent.buildTooltip(spices.createStatusEffectInstances(), tooltip::add, 1.0F, context.getUpdateTickRate());
         }
     }
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        SpiceEffectsComponent spiceEffectsComponent = this.getSpiceEffect(stack);
-        for (SpiceEffectsComponent.SpiceEffect spiceEffect : spiceEffectsComponent.effects()) {
-            user.addStatusEffect(spiceEffect.createStatusEffectInstance());
-        }
-
+        SpiceIngredient.apply(stack, user);
         return super.finishUsing(stack, world, user);
     }
 
     @Override
-    public SpiceEffectsComponent getSpiceEffect(@Nullable ItemStack stack) {
-        SpiceEffectsComponent spiceEffectComponent = SpiceIngredient.super.getSpiceEffect(stack);
-        return spiceEffectComponent != null ? spiceEffectComponent : this.spiceEffects;
+    public List<Spice> getSpices(@Nullable ItemStack stack) {
+        if (stack == null || stack.isEmpty())
+            return null;
+
+        return this.spiceContainer.spices();
     }
 }
