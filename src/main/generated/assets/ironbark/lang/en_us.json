@@ -53,6 +53,11 @@
   "item.ironbark.weak_repair_gem": "Weak Repair Gem",
   "itemGroup.ironbark.artifacts_group": "Ironbark | Artifacts",
   "itemGroup.ironbark.main_group": "Ironbark",
+  "spice.ironbark.ashthorn": "Ashthorn",
+  "spice.ironbark.brightburst": "Brightburst",
+  "spice.ironbark.goldenbloom": "Goldenbloom",
+  "spice.ironbark.skypepper": "Skypepper",
+  "spice.ironbark.smolderroot": "Smolderroot",
   "tag.item.ironbark.repair_gems_blacklist": "Repair Gems Blacklist",
   "tag.item.ironbark.spicy_item_blacklist": "Spicy Items Blacklist",
   "tooltip.ironbark.spicy": "Spicy"

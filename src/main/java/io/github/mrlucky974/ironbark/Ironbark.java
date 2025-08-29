@@ -112,6 +112,7 @@ public class Ironbark implements ModInitializer {
                             tooltip.add(Text.literal("")
                                     .append(spice.getName())
                                     .append(" x" + count)
+                                    .formatted(Formatting.BLUE)
                             );
                         }
                     }

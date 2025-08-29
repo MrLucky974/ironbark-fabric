@@ -3,14 +3,12 @@ package io.github.mrlucky974.ironbark.data.provider.lang;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import io.github.mrlucky974.ironbark.Ironbark;
 import io.github.mrlucky974.ironbark.emi.IronbarkEmiPlugin;
-import io.github.mrlucky974.ironbark.init.BlockInit;
-import io.github.mrlucky974.ironbark.init.FilterInit;
-import io.github.mrlucky974.ironbark.init.ItemGroupInit;
-import io.github.mrlucky974.ironbark.init.ItemInit;
+import io.github.mrlucky974.ironbark.init.*;
 import io.github.mrlucky974.ironbark.item.AncientClayTabletItem;
 import io.github.mrlucky974.ironbark.item.CoinItem;
 import io.github.mrlucky974.ironbark.item.CoinSackItem;
 import io.github.mrlucky974.ironbark.list.TagList;
+import io.github.mrlucky974.ironbark.spice.Spice;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
@@ -38,6 +36,10 @@ public class IronbarkEnglishLanguageProvider extends FabricLanguageProvider {
     private static void addFilter(@NotNull TranslationBuilder translationBuilder, @NotNull Filter filter, @NotNull String value) {
         Text text = filter.getMessage();
         addText(translationBuilder, text, value);
+    }
+
+    private static void addSpice(@NotNull TranslationBuilder translationBuilder, @NotNull Spice spice, @NotNull String value) {
+        addText(translationBuilder, spice.getName(), value);
     }
 
     private static void addEmiRecipeCategory(@NotNull TranslationBuilder translationBuilder, @NotNull EmiRecipeCategory category, @NotNull String value) {
@@ -106,6 +108,12 @@ public class IronbarkEnglishLanguageProvider extends FabricLanguageProvider {
         addFilter(translationBuilder, FilterInit.UTILITIES, "Utilities");
         addFilter(translationBuilder, FilterInit.REPAIR_GEMS, "Repair Gems");
         addFilter(translationBuilder, FilterInit.FOOD, "Food");
+
+        addSpice(translationBuilder, SpiceInit.GOLDENBLOOM, "Goldenbloom");
+        addSpice(translationBuilder, SpiceInit.BRIGHTBURST, "Brightburst");
+        addSpice(translationBuilder, SpiceInit.SMOLDERROOT, "Smolderroot");
+        addSpice(translationBuilder, SpiceInit.ASHTHORN, "Ashthorn");
+        addSpice(translationBuilder, SpiceInit.SKYPEPPER, "Skypepper");
 
         addText(translationBuilder, Ironbark.SPICY_TOOLTIP, "Spicy");
         addText(translationBuilder, AncientClayTabletItem.INVALID_RECIPE_TOOLTIP, "Invalid Recipe");
