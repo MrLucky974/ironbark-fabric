@@ -1,6 +1,6 @@
 package io.github.mrlucky974.ironbark.mixin.client;
 
-import io.github.mrlucky974.ironbark.event.HudRenderBeforeChatCallback;
+import io.github.mrlucky974.ironbark.event.HudRenderBeforeCallback;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
@@ -13,6 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin {
     @Inject(method = "render", at = @At(value = "TAIL"))
     public void render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        HudRenderBeforeChatCallback.EVENT.invoker().onHudRender(context, tickCounter);
+        HudRenderBeforeCallback.EVENT.invoker().onHudRender(context, tickCounter);
     }
 }

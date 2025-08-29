@@ -1,7 +1,7 @@
 package io.github.mrlucky974.ironbark.client.renderer.hud;
 
 import io.github.mrlucky974.ironbark.Ironbark;
-import io.github.mrlucky974.ironbark.event.HudRenderBeforeChatCallback;
+import io.github.mrlucky974.ironbark.event.HudRenderBeforeCallback;
 import io.github.mrlucky974.ironbark.init.StatusEffectInit;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -9,7 +9,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 
-public class IronGutsHudRenderer implements HudRenderBeforeChatCallback {
+public class IronGutsHudRenderer implements HudRenderBeforeCallback {
     private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
     private static final Identifier IRON_GUTS = Ironbark.id("textures/gui/sprites/iron_guts.png");
 

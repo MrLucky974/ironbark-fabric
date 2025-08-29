@@ -8,7 +8,7 @@ import io.github.mrlucky974.ironbark.client.renderer.hud.BankHudRenderer;
 import io.github.mrlucky974.ironbark.client.renderer.IronbarkEffectRenderer;
 import io.github.mrlucky974.ironbark.client.renderer.hud.IronGutsHudRenderer;
 import io.github.mrlucky974.ironbark.config.IronbarkConfig;
-import io.github.mrlucky974.ironbark.event.HudRenderBeforeChatCallback;
+import io.github.mrlucky974.ironbark.event.HudRenderBeforeCallback;
 import io.github.mrlucky974.ironbark.init.FilterInit;
 import io.github.mrlucky974.ironbark.init.ItemInit;
 import io.github.mrlucky974.ironbark.init.ScreenHandlerTypeInit;
@@ -59,7 +59,7 @@ public class IronbarkClient implements ClientModInitializer {
         FilterInit.init();
 
         HudRenderCallback.EVENT.register(BANK_HUD_RENDERER);
-        HudRenderBeforeChatCallback.EVENT.register(IRON_GUTS_HUD_RENDERER);
+        HudRenderBeforeCallback.EVENT.register(IRON_GUTS_HUD_RENDERER);
 
         WorldRenderEvents.AFTER_ENTITIES.register(IronbarkClient::renderOutlineEffect);
     }
